@@ -66,7 +66,8 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            CatchCreature();
+
+            Action();
         }
 
         CamLook();
@@ -244,6 +245,11 @@ public class PlayerController : MonoBehaviour
             staminaSlider.value += 0.1f;
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    private void Action()
+    {
+        sword.gameObject.GetComponent<Animator>().Play("Sword_Swing");
     }
 
     private void CatchCreature()
