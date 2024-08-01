@@ -6,7 +6,10 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    public CharacterController playerController;
+
     public Camera playerCam;
+    public Camera renderCam;
     public Transform playerBody;
 
     private float playerXrotation = 0;
@@ -18,7 +21,10 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded = true;
 
     private int currentSpeed = 12;
-    private bool isSprinting;
+    private bool isSprinting = false;
+
+    private bool isCrouching = false;
+    private Vector3 offset;
 
     public Slider healthSlider;
     public Slider staminaSlider;
@@ -47,47 +53,37 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift) && staminaSlider.value > 0)
         {
-            currentSpeed = 24;
-            playerCam.fieldOfView = Mathf.Lerp(playerCam.fieldOfView, 78f, 20f * Time.deltaTime);
-
-            if (!isSprinting)
-            {
-                isSprinting = true;
-                if (refillStaminaCoroutine != null)
-                {
-                    StopCoroutine(refillStaminaCoroutine);
-                }
-                decreaseStaminaCoroutine = StartCoroutine(DecreaseStamina());
-            }
+            Sprint();
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            isCrouching = !isCrouching;
         }
         else
         {
-            currentSpeed = 12;
-            playerCam.fieldOfView = Mathf.Lerp(playerCam.fieldOfView, 60f, 20f * Time.deltaTime);
+            Walk();
+        }
 
-            if (isSprinting)
-            {
-                isSprinting = false;
-                if (decreaseStaminaCoroutine != null)
-                {
-                    StopCoroutine(decreaseStaminaCoroutine);
-                }
-                refillStaminaCoroutine = StartCoroutine(RefillStamina());
-            }
+        if (Input.GetMouseButtonDown(0))
+        {
+            CatchCreature();
         }
 
         CamLook();
         PlayerMove();
+
+        Crouch();
     }
 
     private void CamLook()
     {
-        float mouseX = Input.GetAxis("Mouse X") * 80 * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * 80 * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * 50 * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * 50 * Time.deltaTime;
 
         playerXrotation -= mouseY;
         playerXrotation = Mathf.Clamp(playerXrotation, -90, 90);
 
+        renderCam.transform.localRotation = Quaternion.Euler(playerXrotation, 0, 0);
         playerCam.transform.localRotation = Quaternion.Euler(playerXrotation, 0, 0);
         playerBody.Rotate(Vector3.up * mouseX);
     }
@@ -101,11 +97,11 @@ public class PlayerController : MonoBehaviour
         
         move.Normalize();
 
-        GetComponent<CharacterController>().Move(move * currentSpeed * Time.deltaTime);
+        playerController.Move(move * currentSpeed * Time.deltaTime);
 
         playerVelocity.y += -9.81f * Time.deltaTime;
 
-        GetComponent<CharacterController>().Move(playerVelocity * Time.deltaTime);
+        playerController.Move(playerVelocity * Time.deltaTime);
 
         if (moveX > 0 || moveZ > 0)
         {
@@ -117,17 +113,95 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void StartBobbing()
+    private void Sprint()
     {
-        playerCam.gameObject.GetComponent<Animator>().Play("HeadBob");
+        currentSpeed = 12;
 
-        if (currentSpeed == 12)
+        renderCam.fieldOfView = Mathf.Lerp(renderCam.fieldOfView, 78f, 20f * Time.deltaTime);
+        playerCam.fieldOfView = Mathf.Lerp(renderCam.fieldOfView, 78f, 20f * Time.deltaTime);
+
+        if (!isSprinting)
         {
-            playerCam.gameObject.GetComponent<Animator>().speed = 1;
+            isSprinting = true;
+            isCrouching = false;
+
+            if (refillStaminaCoroutine != null)
+            {
+                StopCoroutine(refillStaminaCoroutine);
+            }
+            decreaseStaminaCoroutine = StartCoroutine(DecreaseStamina());
+        }
+    }
+
+    private void Crouch()
+    {
+        if (isCrouching)
+        {
+            currentSpeed = 4;
+
+            renderCam.fieldOfView = Mathf.Lerp(renderCam.fieldOfView, 50f, 20f * Time.deltaTime);
+            playerCam.fieldOfView = Mathf.Lerp(renderCam.fieldOfView, 50f, 20f * Time.deltaTime);
+
+            playerController.height = playerController.height - 10f * Time.deltaTime;
+
+            if(playerController.height <= 1f)
+            {
+                playerController.height = 1f;
+            }
         }
         else
         {
-            playerCam.gameObject.GetComponent<Animator>().speed = 1.5f;
+            playerController.height = playerController.height + 10f * Time.deltaTime;
+
+            if(playerController.height < 2f)
+            {
+                playerBody.position = playerBody.position + offset * Time.deltaTime;
+            }
+            if (playerController.height >= 2f)
+            {
+                playerController.height = 2f;
+            }
+        }
+    }
+
+    private void Walk()
+    {
+        if(!isCrouching && !isSprinting)
+        {
+            currentSpeed = 8;
+
+            renderCam.fieldOfView = Mathf.Lerp(renderCam.fieldOfView, 60f, 20f * Time.deltaTime);
+            playerCam.fieldOfView = Mathf.Lerp(renderCam.fieldOfView, 60f, 20f * Time.deltaTime);
+        }
+
+        if (isSprinting)
+        {
+            isSprinting = false;
+            isCrouching = false;
+
+            if (decreaseStaminaCoroutine != null)
+            {
+                StopCoroutine(decreaseStaminaCoroutine);
+            }
+            refillStaminaCoroutine = StartCoroutine(RefillStamina());
+        }
+    }
+
+    private void StartBobbing()
+    {
+        renderCam.gameObject.GetComponent<Animator>().Play("HeadBob");
+
+        if (currentSpeed == 8)
+        {
+            renderCam.gameObject.GetComponent<Animator>().speed = 1;
+        }
+        else if(currentSpeed == 12)
+        {
+            renderCam.gameObject.GetComponent<Animator>().speed = 1.5f;
+        }
+        else
+        {
+            renderCam.gameObject.GetComponent<Animator>().speed = 0.5f;
         }
     }
 
@@ -136,20 +210,20 @@ public class PlayerController : MonoBehaviour
         float elapsedTime = 0f;
 
         Vector3 originalPos = new Vector3(0, 0.8f, 0);
-        Vector3 currentPos = playerCam.transform.localPosition;
+        Vector3 currentPos = renderCam.transform.localPosition;
 
-        playerCam.gameObject.GetComponent<Animator>().Play("New State");
-        playerCam.gameObject.GetComponent<Animator>().enabled = false;
+        renderCam.gameObject.GetComponent<Animator>().Play("New State");
+        renderCam.gameObject.GetComponent<Animator>().enabled = false;
 
         while (elapsedTime < duration)
         {
-            playerCam.transform.localPosition = Vector3.Lerp(currentPos, originalPos, elapsedTime / duration);
+            renderCam.transform.localPosition = Vector3.Lerp(currentPos, originalPos, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        playerCam.transform.localPosition = originalPos;
-        playerCam.gameObject.GetComponent<Animator>().enabled = true;
+        renderCam.transform.localPosition = originalPos;
+        renderCam.gameObject.GetComponent<Animator>().enabled = true;
     }
 
     private IEnumerator DecreaseStamina()
@@ -169,6 +243,23 @@ public class PlayerController : MonoBehaviour
         {
             staminaSlider.value += 0.1f;
             yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    private void CatchCreature()
+    {
+        int layerMask = LayerMask.GetMask("AI");
+
+        Ray ray = new Ray(playerCam.transform.position, playerCam.transform.forward);
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 2.5f, layerMask))
+        {
+            if (hit.collider.CompareTag("Creature"))
+            {
+                Destroy(hit.collider.gameObject);
+            }
         }
     }
 }

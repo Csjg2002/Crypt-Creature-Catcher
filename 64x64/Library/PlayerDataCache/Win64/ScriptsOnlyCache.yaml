@@ -59,21 +59,19 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 64
       Script: {instanceID: 0}
+    - Class: 65
+      Script: {instanceID: 0}
     - Class: 74
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
     - Class: 84
       Script: {instanceID: 0}
-    - Class: 89
-      Script: {instanceID: 0}
     - Class: 91
       Script: {instanceID: 0}
     - Class: 95
       Script: {instanceID: 0}
     - Class: 104
-      Script: {instanceID: 0}
-    - Class: 108
       Script: {instanceID: 0}
     - Class: 114
       Script: {instanceID: 16688}
@@ -86,18 +84,16 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 19430}
     - Class: 114
-      Script: {instanceID: 20020}
+      Script: {instanceID: 20012}
     - Class: 114
-      Script: {instanceID: 20634}
+      Script: {instanceID: 20022}
     - Class: 114
-      Script: {instanceID: 20724}
+      Script: {instanceID: 20636}
     - Class: 114
-      Script: {instanceID: 21098}
+      Script: {instanceID: 20726}
     - Class: 114
-      Script: {instanceID: 39174}
+      Script: {instanceID: 21100}
     - Class: 115
-      Script: {instanceID: 0}
-    - Class: 136
       Script: {instanceID: 0}
     - Class: 143
       Script: {instanceID: 0}
@@ -110,6 +106,8 @@ ScriptsOnlyBuild:
     - Class: 223
       Script: {instanceID: 0}
     - Class: 224
+      Script: {instanceID: 0}
+    - Class: 258
       Script: {instanceID: 0}
   scriptHashData:
   - hash:
@@ -516,7 +514,7 @@ ScriptsOnlyBuild:
     className: UnityOnCancelMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 94758aac9b4a754101f66e7d5a27b156
+      Hash: 07598d53733839ac8f53171690a64a20
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: PlayerController
@@ -598,6 +596,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
     className: GlobalMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: b3692db8dd0456983f16ee197770b611
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: UI
   - hash:
       serializedVersion: 2
       Hash: 53e329840e6d03aebec76623c3b054db
@@ -946,13 +950,7 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
-  - hash:
-      serializedVersion: 2
-      Hash: b3692db8dd0456983f16ee197770b611
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: UI
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/Cameron/Desktop/suuuiiiii]/64x64.exe
+  playerPath: C:/Users/Cameron/Desktop/builds/64x64.exe
