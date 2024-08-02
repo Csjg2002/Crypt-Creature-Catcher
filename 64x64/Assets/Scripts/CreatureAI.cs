@@ -61,6 +61,14 @@ public class CreatureAI : MonoBehaviour
                 moveCoroutine = StartCoroutine(MoveToNewLocation());
             }
         }
+
+        LookAtPlayer();
+    }
+    private void LookAtPlayer()
+    {
+        Vector3 Lookdirection = player.transform.position - this.gameObject.transform.position;
+        Quaternion Lookrotation = Quaternion.LookRotation(Lookdirection);
+        this.gameObject.transform.rotation = Lookrotation;
     }
 
     private IEnumerator MoveToNewLocation()
@@ -72,7 +80,9 @@ public class CreatureAI : MonoBehaviour
                 yield return StartCoroutine(FindNewLocation());
                 isMoving = true;
                 creatureAgent.SetDestination(destination);
+                yield return new WaitForSeconds(Random.Range(3, 6));
             }
+            yield return null;
 
             while (isMoving)
             {

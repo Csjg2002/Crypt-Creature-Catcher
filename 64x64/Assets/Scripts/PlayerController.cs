@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private Coroutine refillStaminaCoroutine;
 
     public GameObject sword;
+    [SerializeField] public bool isAttacking = false;
 
     // Start is called before the first frame update
     void Start()
@@ -66,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-
+            isAttacking = true;
             Action();
         }
 
@@ -104,13 +105,15 @@ public class PlayerController : MonoBehaviour
 
         playerController.Move(playerVelocity * Time.deltaTime);
 
-        if (moveX > 0 || moveZ > 0)
+        if (moveX != 0 || moveZ != 0)
         {
             StartBobbing();
+            sword.gameObject.GetComponent<Animator>().SetFloat("Speed", currentSpeed);
         }
         else
         {
             StartCoroutine(StopBobbing(0.05f));
+            sword.gameObject.GetComponent<Animator>().SetFloat("Speed", 0);
         }
     }
 
@@ -195,14 +198,17 @@ public class PlayerController : MonoBehaviour
         if (currentSpeed == 8)
         {
             renderCam.gameObject.GetComponent<Animator>().speed = 1;
+            sword.gameObject.GetComponent<Animator>().speed = 0.8f;
         }
         else if(currentSpeed == 12)
         {
-            renderCam.gameObject.GetComponent<Animator>().speed = 1.5f;
+            renderCam.gameObject.GetComponent<Animator>().speed = 1f;
+            sword.gameObject.GetComponent<Animator>().speed = 1;
         }
         else
         {
             renderCam.gameObject.GetComponent<Animator>().speed = 0.5f;
+            sword.gameObject.GetComponent<Animator>().speed = 0.6f;
         }
     }
 
@@ -249,6 +255,7 @@ public class PlayerController : MonoBehaviour
 
     private void Action()
     {
+        sword.gameObject.GetComponent<Animator>().speed = 1;
         sword.gameObject.GetComponent<Animator>().Play("Sword_Swing");
     }
 
