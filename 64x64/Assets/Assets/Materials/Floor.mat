@@ -14,6 +14,7 @@ Material:
   m_ValidKeywords:
   - _DETAIL_MULX2
   - _NORMALMAP
+  - _SPECULARHIGHLIGHTS_OFF
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -75,11 +76,11 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 1
+    - _SpecularHighlights: 0
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.6981132, g: 0.5045473, b: 0.3721075, a: 1}
+    - _Color: {r: 0.8490566, g: 0.618179, b: 0.43654326, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
