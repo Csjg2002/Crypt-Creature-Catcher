@@ -874,4 +874,11 @@ AnimationClip:
     flags: 0
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.41666666
+    functionName: Attack
+    data: 
+    objectReferenceParameter: {fileID: 2848785960601598301, guid: 45c67bcb3b9d0a5429372891920ffe2e, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

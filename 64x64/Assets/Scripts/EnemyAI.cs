@@ -194,18 +194,37 @@ public class EnemyAI : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        yield return new WaitForSeconds(1.5f);
+        float initialWaitTime = 1.0f;
+        float attackDuration = 1.5f;
+        float elapsedTime = 0f;
 
-        if(distanceToPlayer <= 1.5f)
+        float waitStartTime = Time.time;
+        while (Time.time - waitStartTime < initialWaitTime)
         {
-            StartCoroutine(UI.GetComponent<UI>().DamageIndicator());
-            player.GetComponent<PlayerController>().healthSlider.value--;
-            attackCoroutine = null;
-        }
-        else
-        {
-            attackCoroutine = null;
+            if (distanceToPlayer > 1.5f)
+            {
+                attackCoroutine = null;
+                yield break;
+            }
+
             yield return null;
         }
+
+        // Attack loop
+        while (elapsedTime < attackDuration)
+        {
+            if (distanceToPlayer <= 1.5f)
+            {
+                StartCoroutine(UI.GetComponent<UI>().DamageIndicator());
+                player.GetComponent<PlayerController>().healthSlider.value--;
+                attackCoroutine = null;
+                yield break;
+            }
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        attackCoroutine = null;
     }
 }

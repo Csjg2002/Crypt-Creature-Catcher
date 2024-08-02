@@ -283,6 +283,7 @@ MonoBehaviour:
   healthSlider: {fileID: 0}
   staminaSlider: {fileID: 0}
   sword: {fileID: 7612438539811107947}
+  isAttacking: 0
 --- !u!1 &7083574174669694230
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,7 +331,7 @@ GameObject:
   - component: {fileID: 8615937780572427911}
   m_Layer: 8
   m_Name: Sword
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

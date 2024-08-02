@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     private Coroutine refillStaminaCoroutine;
 
     public GameObject sword;
-    [SerializeField] public bool isAttacking = false;
+    [HideInInspector] public bool isAttacking = false;
 
     // Start is called before the first frame update
     void Start()
@@ -67,7 +67,6 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            isAttacking = true;
             Action();
         }
 
@@ -257,6 +256,7 @@ public class PlayerController : MonoBehaviour
     {
         sword.gameObject.GetComponent<Animator>().speed = 1;
         sword.gameObject.GetComponent<Animator>().Play("Sword_Swing");
+        isAttacking = true;
     }
 
     private void CatchCreature()

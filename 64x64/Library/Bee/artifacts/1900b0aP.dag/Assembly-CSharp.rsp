@@ -313,6 +313,7 @@
 "Assets/Scripts/EnemyAI.cs"
 "Assets/Scripts/OldScripts/PauseGame.cs"
 "Assets/Scripts/PlayerController.cs"
+"Assets/Scripts/SwordCollisionDetection.cs"
 "Assets/Scripts/UI.cs"
 -langversion:9.0
 /deterministic

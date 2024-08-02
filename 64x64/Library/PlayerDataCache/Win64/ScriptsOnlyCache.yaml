@@ -4,11 +4,20 @@ ScriptsOnlyBuild:
     - CreatureAI
     - EnemyAI
     - PlayerController
+    - SwordCollisionDetection
     - UI
     Unity.AI.Navigation.dll:
     - Unity.AI.Navigation.NavMeshSurface
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -53,6 +62,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 54
+      Script: {instanceID: 0}
     - Class: 64
       Script: {instanceID: 0}
     - Class: 65
@@ -82,19 +93,21 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 18626}
     - Class: 114
-      Script: {instanceID: 19524}
+      Script: {instanceID: 19030}
     - Class: 114
-      Script: {instanceID: 20112}
+      Script: {instanceID: 19526}
     - Class: 114
-      Script: {instanceID: 20124}
+      Script: {instanceID: 20114}
     - Class: 114
-      Script: {instanceID: 20372}
+      Script: {instanceID: 20126}
     - Class: 114
-      Script: {instanceID: 20852}
+      Script: {instanceID: 20374}
     - Class: 114
-      Script: {instanceID: 20986}
+      Script: {instanceID: 20854}
     - Class: 114
-      Script: {instanceID: 21234}
+      Script: {instanceID: 20988}
+    - Class: 114
+      Script: {instanceID: 21236}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 143
@@ -458,6 +471,12 @@ ScriptsOnlyBuild:
     className: Mask
   - hash:
       serializedVersion: 2
+      Hash: 5b29c2cf97ba477b883f55b605945e5f
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: SwordCollisionDetection
+  - hash:
+      serializedVersion: 2
       Hash: 4718916586b3818eb69bf65df61f0f3a
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
@@ -536,7 +555,7 @@ ScriptsOnlyBuild:
     className: UnityOnCancelMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 07598d53733839ac8f53171690a64a20
+      Hash: 75952eae519e27b15829582c5c4ecf91
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: PlayerController
