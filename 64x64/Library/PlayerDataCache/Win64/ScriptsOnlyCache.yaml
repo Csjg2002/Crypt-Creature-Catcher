@@ -13,10 +13,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -85,41 +83,41 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 16678}
+      Script: {instanceID: 16728}
     - Class: 114
-      Script: {instanceID: 16704}
+      Script: {instanceID: 16766}
     - Class: 114
-      Script: {instanceID: 16746}
+      Script: {instanceID: 17486}
     - Class: 114
-      Script: {instanceID: 17362}
+      Script: {instanceID: 17782}
     - Class: 114
-      Script: {instanceID: 17492}
+      Script: {instanceID: 17984}
     - Class: 114
-      Script: {instanceID: 17802}
+      Script: {instanceID: 18648}
     - Class: 114
-      Script: {instanceID: 18010}
+      Script: {instanceID: 19058}
     - Class: 114
-      Script: {instanceID: 18696}
+      Script: {instanceID: 19536}
     - Class: 114
-      Script: {instanceID: 19338}
+      Script: {instanceID: 20126}
     - Class: 114
-      Script: {instanceID: 19596}
+      Script: {instanceID: 20138}
     - Class: 114
-      Script: {instanceID: 20234}
+      Script: {instanceID: 20384}
     - Class: 114
-      Script: {instanceID: 20246}
+      Script: {instanceID: 20868}
     - Class: 114
-      Script: {instanceID: 20318}
+      Script: {instanceID: 20992}
     - Class: 114
-      Script: {instanceID: 20504}
+      Script: {instanceID: 21228}
     - Class: 114
-      Script: {instanceID: 20996}
+      Script: {instanceID: 26408}
     - Class: 114
-      Script: {instanceID: 21130}
+      Script: {instanceID: 26416}
     - Class: 114
-      Script: {instanceID: 21380}
+      Script: {instanceID: 26422}
     - Class: 114
-      Script: {instanceID: 23222}
+      Script: {instanceID: 26424}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -147,12 +145,6 @@ ScriptsOnlyBuild:
     - Class: 258
       Script: {instanceID: 0}
   scriptHashData:
-  - hash:
-      serializedVersion: 2
-      Hash: 5b29c2cf97ba477b883f55b605945e5f
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: SwordCollisionDetection
   - hash:
       serializedVersion: 2
       Hash: 540882762544409cc4530e60db00e951
@@ -497,6 +489,12 @@ ScriptsOnlyBuild:
     className: PostProcessEffectSettings
   - hash:
       serializedVersion: 2
+      Hash: 5b29c2cf97ba477b883f55b605945e5f
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: SwordCollisionDetection
+  - hash:
+      serializedVersion: 2
       Hash: 4718916586b3818eb69bf65df61f0f3a
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
@@ -555,6 +553,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
     className: UnityOnCancelMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: 07598d53733839ac8f53171690a64a20
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: PlayerController
   - hash:
       serializedVersion: 2
       Hash: 80a72b656b55a7a1fc92e1a02151ea22
@@ -1035,12 +1039,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
-  - hash:
-      serializedVersion: 2
-      Hash: 07598d53733839ac8f53171690a64a20
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: PlayerController
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity

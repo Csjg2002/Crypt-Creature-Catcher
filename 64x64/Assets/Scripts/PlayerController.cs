@@ -308,10 +308,13 @@ public class PlayerController : MonoBehaviour
             if(!hasAttacked)
             {
                 sword.gameObject.GetComponent<Animator>().Play("Sword_Swing");
+                StartCoroutine(SwordAnimReset());
+
             }
             else
             {
                 sword.gameObject.GetComponent<Animator>().Play("Sword_Swing2");
+                StopCoroutine(SwordAnimReset());
             }
 
             hasAttacked = !hasAttacked;
@@ -323,6 +326,12 @@ public class PlayerController : MonoBehaviour
         staminaSlider.value--;
         Sprint();
         Walk();
+    }
+
+    private IEnumerator SwordAnimReset()
+    {
+        yield return new WaitForSeconds(2);
+        hasAttacked = false;
     }
 
     private void CatchCreature()
