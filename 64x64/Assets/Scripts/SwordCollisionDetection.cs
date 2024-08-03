@@ -47,39 +47,34 @@ public class SwordCollisionDetection : MonoBehaviour
     {
         player.GetComponent<PlayerController>().SwordStamina();
 
-        if(player.GetComponent<PlayerController>().staminaSlider.value > 0)
+        if (enemyToAttack != null && canAttack)
         {
-            if (enemyToAttack != null && canAttack)
+            StartCoroutine(enemyHurtIndicator(enemyToAttack));
+
+            Vector3 playerForwardDirection = player.transform.forward;
+
+            Rigidbody enemyRigidbody = enemyToAttack.GetComponent<Rigidbody>();
+            if (enemyRigidbody != null)
             {
-                StartCoroutine(enemyHurtIndicator(enemyToAttack));
-
-                Vector3 playerForwardDirection = player.transform.forward;
-
-                Rigidbody enemyRigidbody = enemyToAttack.GetComponent<Rigidbody>();
-                if (enemyRigidbody != null)
-                {
-                    float knockbackForce = 10f;
-                    enemyRigidbody.AddForce(playerForwardDirection * knockbackForce, ForceMode.Impulse);
-                }
-
-                player.GetComponent<PlayerController>().isAttacking = false;
-                canAttack = false;
-
-                StartCoroutine(resetEnemyRB(enemyRigidbody));
+                float knockbackForce = 5f;
+                enemyRigidbody.AddForce(playerForwardDirection * knockbackForce, ForceMode.Impulse);
             }
+
+            player.GetComponent<PlayerController>().isAttacking = false;
+            canAttack = false;
+
+            //StartCoroutine(resetEnemyRB(enemyRigidbody));
         }
     }
 
     private IEnumerator enemyHurtIndicator(GameObject enemy)
     {
-        enemy.GetComponent<Rigidbody>().isKinematic = true;
         enemy.GetComponent<SpriteRenderer>().material.color = Color.red;
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(0.1f);
         Time.timeScale = 1;
         yield return new WaitForSeconds(0.1f);
         enemy.GetComponent<SpriteRenderer>().material.color = Color.white;
-        enemy.GetComponent<Rigidbody>().isKinematic = false;
     }
 
     private IEnumerator resetEnemyRB(Rigidbody enemyRB)
@@ -87,6 +82,7 @@ public class SwordCollisionDetection : MonoBehaviour
         enemyRB.isKinematic = false;
         yield return new WaitForSeconds(1);
         enemyRB.isKinematic = true;
+        yield return new WaitForSeconds(0.1f);
         enemyRB.isKinematic = false;
     }
 }

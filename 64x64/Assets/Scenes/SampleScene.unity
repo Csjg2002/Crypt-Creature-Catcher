@@ -7501,6 +7501,14 @@ PrefabInstance:
       propertyPath: m_CullingMask.m_Bits
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5665876607300478733, guid: 3337544985ed7cc4b9d02d757500216c, type: 3}
+      propertyPath: m_SkinWidth
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665876607300478733, guid: 3337544985ed7cc4b9d02d757500216c, type: 3}
+      propertyPath: m_StepOffset
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 5677183816435815909, guid: 3337544985ed7cc4b9d02d757500216c, type: 3}
       propertyPath: m_Name
       value: Player
@@ -7604,6 +7612,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7005606843591595350, guid: b7bc42bbde0253145a7b69535fc579f7, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7005606843591595350, guid: b7bc42bbde0253145a7b69535fc579f7, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7033212676597264823, guid: b7bc42bbde0253145a7b69535fc579f7, type: 3}

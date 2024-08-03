@@ -149,47 +149,35 @@ public class EnemyAI : MonoBehaviour
             {
                 if (distanceToPlayer > 1.5f)
                 {
-                    Vector3 directionToPlayer = player.transform.position - transform.position;
-                    destination = transform.position + directionToPlayer.normalized * chaseDistance;
-
-                    if (NavMesh.SamplePosition(destination, out NavMeshHit hit, chaseDistance, NavMesh.AllAreas))
-                    {
-                        destination = hit.position;
-                    }
-                    else
-                    {
-                        destination = transform.position;
-                    }
-
-                    enemyAgent.SetDestination(destination);
+                    // Move towards the player
+                    enemyAgent.SetDestination(player.transform.position);
                 }
                 else
                 {
-                    destination = transform.position;
-                    enemyAgent.SetDestination(destination);
+                    // Close enough to attack
+                    enemyAgent.SetDestination(transform.position); // Stop moving
 
-                    if(distanceToPlayer <= 1.5f)
+                    if (attackCoroutine == null)
                     {
-                        if(attackCoroutine == null)
-                        {
-                            attackCoroutine = StartCoroutine(Attack());
-                        }
+                        attackCoroutine = StartCoroutine(Attack());
                     }
                 }
             }
             else
             {
-                destination = transform.position;
-                enemyAgent.SetDestination(destination);
+                // Stop moving if the player is out of chase distance
+                enemyAgent.SetDestination(transform.position);
             }
 
+            // Yield until the path is complete or next frame
             if (enemyAgent.pathPending || enemyAgent.pathStatus != NavMeshPathStatus.PathComplete)
             {
-                yield return new WaitForSeconds(0.5f);
-                continue;
+                yield return new WaitForSeconds(0.1f);
             }
-
-            yield return null;
+            else
+            {
+                yield return null;
+            }
         }
     }
 
