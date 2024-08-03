@@ -14,7 +14,7 @@ public class EnemyAI : MonoBehaviour
     private bool isMoving = false;
     private bool isChasing = false;
 
-    public float chaseDistance = 10f;
+    public float chaseDistance = 7f;
     public float chaseSpeed = 6f;
     public float normalSpeed = 3f;
 
@@ -25,9 +25,12 @@ public class EnemyAI : MonoBehaviour
     private float distanceToPlayer;
     private bool hasDamagedPlayer = false;
 
+    [HideInInspector] public float enemyHealth;
+
     // Start is called before the first frame update
     void Start()
     {
+        enemyHealth = Random.Range(3, 6);
         player = FindObjectOfType<PlayerController>().gameObject;
         UI = FindObjectOfType<UI>().gameObject;
         enemyAgent = GetComponent<NavMeshAgent>();
@@ -35,47 +38,64 @@ public class EnemyAI : MonoBehaviour
     }
 
     // Update is called once per frame
+
     void Update()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
         if (distanceToPlayer < chaseDistance)
         {
             if (!isChasing)
             {
-                isChasing = true;
-                enemyAgent.speed = chaseSpeed;
-                if (moveCoroutine != null)
-                {
-                    StopCoroutine(moveCoroutine);
-                    moveCoroutine = null;
-                }
-                chaseCoroutine = StartCoroutine(ChasePlayer());
+                StartChasing();
             }
         }
         else
         {
             if (isChasing)
             {
-                isChasing = false;
-                enemyAgent.speed = normalSpeed;
-                if (chaseCoroutine != null)
-                {
-                    StopCoroutine(chaseCoroutine);
-                    chaseCoroutine = null;
-                }
-                moveCoroutine = StartCoroutine(MoveToNewLocation());
+                StopChasing();
             }
         }
 
         LookAtPlayer();
     }
 
+    private void StartChasing()
+    {
+        isChasing = true;
+        enemyAgent.speed = chaseSpeed;
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+            moveCoroutine = null;
+        }
+        if (chaseCoroutine == null)
+        {
+            chaseCoroutine = StartCoroutine(ChasePlayer());
+        }
+    }
+
+    private void StopChasing()
+    {
+        isChasing = false;
+        enemyAgent.speed = normalSpeed;
+        if (chaseCoroutine != null)
+        {
+            StopCoroutine(chaseCoroutine);
+            chaseCoroutine = null;
+        }
+        if (moveCoroutine == null)
+        {
+            moveCoroutine = StartCoroutine(MoveToNewLocation());
+        }
+    }
+
     private void LookAtPlayer()
     {
-        Vector3 Lookdirection = player.transform.position - this.gameObject.transform.position;
-        Quaternion Lookrotation = Quaternion.LookRotation(Lookdirection);
-        this.gameObject.transform.rotation = Lookrotation;
+        Vector3 lookDirection = player.transform.position - transform.position;
+        Quaternion lookRotation = Quaternion.LookRotation(lookDirection);
+        transform.rotation = lookRotation;
     }
 
     private IEnumerator MoveToNewLocation()
@@ -101,6 +121,7 @@ public class EnemyAI : MonoBehaviour
 
                 if (Vector3.Distance(transform.position, destination) < 1)
                 {
+                    Debug.Log("Reached destination");
                     isMoving = false;
                     yield return new WaitForSeconds(Random.Range(3, 6));
                 }
@@ -145,35 +166,27 @@ public class EnemyAI : MonoBehaviour
         {
             distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
-            if (distanceToPlayer <= chaseDistance)
+            if (distanceToPlayer > chaseDistance)
             {
-                if (distanceToPlayer > 1.5f)
-                {
-                    enemyAgent.SetDestination(player.transform.position);
-                }
-                else
-                {
-                    enemyAgent.SetDestination(transform.position);
+                StopChasing();
+                yield break;
+            }
 
-                    if (attackCoroutine == null)
-                    {
-                        attackCoroutine = StartCoroutine(Attack());
-                    }
-                }
+            if (distanceToPlayer > 1.5f && distanceToPlayer < chaseDistance)
+            {
+                enemyAgent.SetDestination(player.transform.position);
             }
             else
             {
                 enemyAgent.SetDestination(transform.position);
+
+                if (attackCoroutine == null)
+                {
+                    attackCoroutine = StartCoroutine(Attack());
+                }
             }
 
-            if (enemyAgent.pathPending || enemyAgent.pathStatus != NavMeshPathStatus.PathComplete)
-            {
-                yield return new WaitForSeconds(0.1f);
-            }
-            else
-            {
-                yield return null;
-            }
+            yield return null;
         }
     }
 
@@ -182,8 +195,7 @@ public class EnemyAI : MonoBehaviour
         float attackCooldown = 1f;
         float elapsedTime = 0f;
 
-        float waitStartTime = Time.time;
-        while (Time.time - waitStartTime < attackCooldown)
+        while (elapsedTime < attackCooldown)
         {
             if (distanceToPlayer > 1.5f)
             {
@@ -192,26 +204,23 @@ public class EnemyAI : MonoBehaviour
                 yield break;
             }
 
-            yield return null;
-        }
-
-        while (elapsedTime < attackCooldown)
-        {
-            if (distanceToPlayer <= 1.5f && !hasDamagedPlayer)
-            {
-                hasDamagedPlayer = true;
-                StartCoroutine(player.GetComponent<PlayerController>().DamageShake());
-                StartCoroutine(UI.GetComponent<UI>().DamageIndicator());
-                player.GetComponent<PlayerController>().healthSlider.value--;
-                attackCoroutine = null;
-                yield break;
-            }
-
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        attackCoroutine = null;
-        hasDamagedPlayer = false;
+        if (distanceToPlayer <= 1.5f && !hasDamagedPlayer)
+        {
+            hasDamagedPlayer = true;
+            StartCoroutine(player.GetComponent<PlayerController>().DamageShake());
+            StartCoroutine(UI.GetComponent<UI>().DamageIndicator());
+            player.GetComponent<PlayerController>().healthSlider.value--;
+
+            if (player.GetComponent<PlayerController>().healthSlider.value <= 0)
+            {
+                player.GetComponent<PlayerController>().GameOver();
+            }
+
+            attackCoroutine = null;
+        }
     }
 }

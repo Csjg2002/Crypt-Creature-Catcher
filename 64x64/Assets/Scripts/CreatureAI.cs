@@ -37,38 +37,53 @@ public class CreatureAI : MonoBehaviour
         {
             if (!isFleeing)
             {
-                isFleeing = true;
-                creatureAgent.speed = fleeSpeed;
-                if (moveCoroutine != null)
-                {
-                    StopCoroutine(moveCoroutine);
-                    moveCoroutine = null;
-                }
-                fleeCoroutine = StartCoroutine(FleeFromPlayer());
+                StartFleeing();
             }
         }
         else
         {
             if (isFleeing)
             {
-                isFleeing = false;
-                creatureAgent.speed = normalSpeed;
-                if (fleeCoroutine != null)
-                {
-                    StopCoroutine(fleeCoroutine);
-                    fleeCoroutine = null;
-                }
-                moveCoroutine = StartCoroutine(MoveToNewLocation());
+                StopFleeing();
             }
         }
 
         LookAtPlayer();
     }
+
+    private void StartFleeing()
+    {
+        isFleeing = true;
+        creatureAgent.speed = fleeSpeed;
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+            moveCoroutine = null;
+        }
+        fleeCoroutine = StartCoroutine(FleeFromPlayer());
+    }
+
+    private void StopFleeing()
+    {
+        isFleeing = false;
+        creatureAgent.speed = normalSpeed;
+        if (fleeCoroutine != null)
+        {
+            StopCoroutine(fleeCoroutine);
+            fleeCoroutine = null;
+        }
+
+        if (moveCoroutine == null)
+        {
+            moveCoroutine = StartCoroutine(MoveToNewLocation());
+        }
+    }
+
     private void LookAtPlayer()
     {
-        Vector3 Lookdirection = player.transform.position - this.gameObject.transform.position;
-        Quaternion Lookrotation = Quaternion.LookRotation(Lookdirection);
-        this.gameObject.transform.rotation = Lookrotation;
+        Vector3 lookDirection = player.transform.position - transform.position;
+        Quaternion lookRotation = Quaternion.LookRotation(lookDirection);
+        transform.rotation = lookRotation;
     }
 
     private IEnumerator MoveToNewLocation()

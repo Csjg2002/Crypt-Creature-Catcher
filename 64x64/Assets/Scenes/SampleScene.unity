@@ -8818,6 +8818,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5241681936952902670, guid: 45c67bcb3b9d0a5429372891920ffe2e, type: 3}
+      propertyPath: chaseSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -5241681936952902670, guid: 45c67bcb3b9d0a5429372891920ffe2e, type: 3}
+      propertyPath: normalSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -5241681936952902670, guid: 45c67bcb3b9d0a5429372891920ffe2e, type: 3}
+      propertyPath: chaseDistance
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2848785960601598301, guid: 45c67bcb3b9d0a5429372891920ffe2e, type: 3}
       propertyPath: m_Name
       value: Enemy

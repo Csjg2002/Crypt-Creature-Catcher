@@ -43,9 +43,19 @@ public class SwordCollisionDetection : MonoBehaviour
     {
         if (enemyToAttack != null)
         {
+            enemyToAttack.GetComponent<EnemyAI>().enemyHealth--;
+
+            if (enemyToAttack.GetComponent<EnemyAI>().enemyHealth <= 0)
+            {
+                StartCoroutine(enemyHurtIndicator(enemyToAttack, 0.1f));
+            }
+            else
+            {
+                StartCoroutine(enemyHurtIndicator(enemyToAttack, 0.05f));
+            }
+
             player.GetComponent<PlayerController>().SwordStamina();
 
-            StartCoroutine(enemyHurtIndicator(enemyToAttack));
 
             NavMeshAgent enemyAgent = enemyToAttack.GetComponent<NavMeshAgent>();
             if (enemyAgent != null)
@@ -66,13 +76,20 @@ public class SwordCollisionDetection : MonoBehaviour
         agent.isStopped = false;
     }
 
-    private IEnumerator enemyHurtIndicator(GameObject enemy)
+    private IEnumerator enemyHurtIndicator(GameObject enemy, float stopTime)
     {
         enemy.GetComponent<SpriteRenderer>().material.color = Color.red;
         Time.timeScale = 0;
-        yield return new WaitForSecondsRealtime(0.1f);
+        yield return new WaitForSecondsRealtime(stopTime);
         Time.timeScale = 1;
-        yield return new WaitForSeconds(0.1f);
-        enemy.GetComponent<SpriteRenderer>().material.color = Color.white;
+
+        if (enemyToAttack.GetComponent<EnemyAI>().enemyHealth > 0)
+        {
+            enemy.GetComponent<SpriteRenderer>().material.color = Color.white;
+        }
+        else
+        {
+            Destroy(enemyToAttack);
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -151,12 +152,12 @@ public class PlayerController : MonoBehaviour
     {
         if (isCrouching)
         {
+            playerController.height = playerController.height - 10f * Time.deltaTime;
+
             currentSpeed = 4;
 
             renderCam.fieldOfView = Mathf.Lerp(renderCam.fieldOfView, 50f, 20f * Time.deltaTime);
             playerCam.fieldOfView = Mathf.Lerp(renderCam.fieldOfView, 50f, 20f * Time.deltaTime);
-
-            playerController.height = playerController.height - 10f * Time.deltaTime;
 
             if(playerController.height <= 1f)
             {
@@ -165,15 +166,27 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            playerController.height = playerController.height + 10f * Time.deltaTime;
+            int layerMask = LayerMask.GetMask("Default");
+            Ray ray = new Ray(playerCam.transform.position, playerCam.transform.up);
 
-            if(playerController.height < 2f)
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 1f, layerMask))
             {
-                playerBody.position = playerBody.position + offset * Time.deltaTime;
+                isCrouching = true;
             }
-            if (playerController.height >= 2f)
+            else
             {
-                playerController.height = 2f;
+                playerController.height = playerController.height + 10f * Time.deltaTime;
+
+                if (playerController.height < 2f)
+                {
+                    playerBody.position = playerBody.position + offset * Time.deltaTime;
+                }
+                if (playerController.height >= 2f)
+                {
+                    playerController.height = 2f;
+                }
             }
         }
     }
@@ -327,5 +340,10 @@ public class PlayerController : MonoBehaviour
                 Destroy(hit.collider.gameObject);
             }
         }
+    }
+
+    public void GameOver()
+    {
+        SceneManager.LoadScene("SampleScene");
     }
 }
