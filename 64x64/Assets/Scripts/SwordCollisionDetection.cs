@@ -45,23 +45,28 @@ public class SwordCollisionDetection : MonoBehaviour
 
     public void Attack()
     {
-        if(enemyToAttack != null && canAttack)
+        player.GetComponent<PlayerController>().SwordStamina();
+
+        if(player.GetComponent<PlayerController>().staminaSlider.value > 0)
         {
-            StartCoroutine(enemyHurtIndicator(enemyToAttack));
-
-            Vector3 playerForwardDirection = player.transform.forward;
-
-            Rigidbody enemyRigidbody = enemyToAttack.GetComponent<Rigidbody>();
-            if (enemyRigidbody != null)
+            if (enemyToAttack != null && canAttack)
             {
-                float knockbackForce = 10f;
-                enemyRigidbody.AddForce(playerForwardDirection * knockbackForce, ForceMode.Impulse);
+                StartCoroutine(enemyHurtIndicator(enemyToAttack));
+
+                Vector3 playerForwardDirection = player.transform.forward;
+
+                Rigidbody enemyRigidbody = enemyToAttack.GetComponent<Rigidbody>();
+                if (enemyRigidbody != null)
+                {
+                    float knockbackForce = 10f;
+                    enemyRigidbody.AddForce(playerForwardDirection * knockbackForce, ForceMode.Impulse);
+                }
+
+                player.GetComponent<PlayerController>().isAttacking = false;
+                canAttack = false;
+
+                StartCoroutine(resetEnemyRB(enemyRigidbody));
             }
-
-            player.GetComponent<PlayerController>().isAttacking = false;
-            canAttack = false;
-
-            StartCoroutine(resetEnemyRB(enemyRigidbody));
         }
     }
 

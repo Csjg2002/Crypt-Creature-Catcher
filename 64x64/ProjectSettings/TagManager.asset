@@ -10,7 +10,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - LowRes
   - Water
   - UI
   - Player
@@ -18,7 +18,7 @@ TagManager:
   - RenderCam
   - AI
   - Gear
-  - PostProcess
+  - 
   - 
   - 
   - 

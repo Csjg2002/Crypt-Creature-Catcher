@@ -52,19 +52,6 @@ public class PlayerController : MonoBehaviour
             playerVelocity.y = -2;
         }
 
-        if (Input.GetKey(KeyCode.LeftShift) && staminaSlider.value > 0)
-        {
-            Sprint();
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            isCrouching = !isCrouching;
-        }
-        else
-        {
-            Walk();
-        }
-
         if (Input.GetMouseButtonDown(0))
         {
             Action();
@@ -103,6 +90,30 @@ public class PlayerController : MonoBehaviour
         playerVelocity.y += -9.81f * Time.deltaTime;
 
         playerController.Move(playerVelocity * Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.LeftShift) && staminaSlider.value > 0)
+        {
+            if(moveX != 0 || moveZ != 0)
+            {
+                Sprint();
+            }
+            else
+            {
+                if (decreaseStaminaCoroutine != null)
+                {
+                    StopCoroutine(decreaseStaminaCoroutine);
+                }
+                Walk();
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            isCrouching = !isCrouching;
+        }
+        else
+        {
+            Walk();
+        }
 
         if (moveX != 0 || moveZ != 0)
         {
@@ -277,9 +288,19 @@ public class PlayerController : MonoBehaviour
 
     private void Action()
     {
-        sword.gameObject.GetComponent<Animator>().speed = 1;
-        sword.gameObject.GetComponent<Animator>().Play("Sword_Swing");
-        isAttacking = true;
+        if(staminaSlider.value > 0)
+        {
+            sword.gameObject.GetComponent<Animator>().speed = 1;
+            sword.gameObject.GetComponent<Animator>().Play("Sword_Swing");
+            isAttacking = true;
+        }
+    }
+
+    public void SwordStamina()
+    {
+        staminaSlider.value--;
+        Sprint();
+        Walk();
     }
 
     private void CatchCreature()
