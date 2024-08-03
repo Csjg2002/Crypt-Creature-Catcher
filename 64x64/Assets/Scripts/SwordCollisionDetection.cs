@@ -6,8 +6,9 @@ using UnityEngine.AI;
 public class SwordCollisionDetection : MonoBehaviour
 {
     private GameObject player;
-    private bool canAttack;
     private GameObject enemyToAttack;
+
+    private bool canAttack = false;
 
     // Start is called before the first frame update
     void Start()
@@ -18,53 +19,51 @@ public class SwordCollisionDetection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Enemy")
+        if (other.tag == "Enemy")
         {
-            if (player.GetComponent<PlayerController>().isAttacking)
-            {
-                canAttack = true;
-                enemyToAttack = other.gameObject;
-            }
-            else
-            {
-                canAttack = false;
-                enemyToAttack = null;
-            }
+            canAttack = true;
+            enemyToAttack = other.gameObject;
         }
-        else
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Enemy")
         {
-            canAttack= false;
+            canAttack = false;
             enemyToAttack = null;
         }
     }
 
     public void Attack()
     {
-        player.GetComponent<PlayerController>().SwordStamina();
-
-        if (enemyToAttack != null && canAttack)
+        if (enemyToAttack != null)
         {
+            player.GetComponent<PlayerController>().SwordStamina();
+
             StartCoroutine(enemyHurtIndicator(enemyToAttack));
 
-            Vector3 playerForwardDirection = player.transform.forward;
-
-            Rigidbody enemyRigidbody = enemyToAttack.GetComponent<Rigidbody>();
-            if (enemyRigidbody != null)
+            NavMeshAgent enemyAgent = enemyToAttack.GetComponent<NavMeshAgent>();
+            if (enemyAgent != null)
             {
-                float knockbackForce = 5f;
-                enemyRigidbody.AddForce(playerForwardDirection * knockbackForce, ForceMode.Impulse);
+                enemyAgent.enabled = false;
+
+                enemyToAttack.transform.position += player.transform.forward * 0.75f;
+
+                enemyAgent.enabled = true;
             }
-
-            player.GetComponent<PlayerController>().isAttacking = false;
-            canAttack = false;
-
-            //StartCoroutine(resetEnemyRB(enemyRigidbody));
         }
+    }
+
+    private IEnumerator StopAgentForShortDuration(NavMeshAgent agent)
+    {
+        agent.isStopped = true;
+        yield return new WaitForSeconds(0.5f);
+        agent.isStopped = false;
     }
 
     private IEnumerator enemyHurtIndicator(GameObject enemy)
@@ -75,14 +74,5 @@ public class SwordCollisionDetection : MonoBehaviour
         Time.timeScale = 1;
         yield return new WaitForSeconds(0.1f);
         enemy.GetComponent<SpriteRenderer>().material.color = Color.white;
-    }
-
-    private IEnumerator resetEnemyRB(Rigidbody enemyRB)
-    {
-        enemyRB.isKinematic = false;
-        yield return new WaitForSeconds(1);
-        enemyRB.isKinematic = true;
-        yield return new WaitForSeconds(0.1f);
-        enemyRB.isKinematic = false;
     }
 }

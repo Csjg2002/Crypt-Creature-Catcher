@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     private Coroutine refillStaminaCoroutine;
 
     public GameObject sword;
-    [HideInInspector] public bool isAttacking = false;
+    private bool hasAttacked = false;
 
     // Start is called before the first frame update
     void Start()
@@ -291,8 +291,17 @@ public class PlayerController : MonoBehaviour
         if(staminaSlider.value > 0)
         {
             sword.gameObject.GetComponent<Animator>().speed = 1;
-            sword.gameObject.GetComponent<Animator>().Play("Sword_Swing");
-            isAttacking = true;
+
+            if(!hasAttacked)
+            {
+                sword.gameObject.GetComponent<Animator>().Play("Sword_Swing");
+            }
+            else
+            {
+                sword.gameObject.GetComponent<Animator>().Play("Sword_Swing2");
+            }
+
+            hasAttacked = !hasAttacked;
         }
     }
 

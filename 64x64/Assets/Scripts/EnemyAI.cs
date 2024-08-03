@@ -15,8 +15,8 @@ public class EnemyAI : MonoBehaviour
     private bool isChasing = false;
 
     public float chaseDistance = 10f;
-    public float chaseSpeed = 12f;
-    public float normalSpeed = 6f;
+    public float chaseSpeed = 6f;
+    public float normalSpeed = 3f;
 
     private Coroutine moveCoroutine;
     private Coroutine chaseCoroutine;
@@ -149,13 +149,11 @@ public class EnemyAI : MonoBehaviour
             {
                 if (distanceToPlayer > 1.5f)
                 {
-                    // Move towards the player
                     enemyAgent.SetDestination(player.transform.position);
                 }
                 else
                 {
-                    // Close enough to attack
-                    enemyAgent.SetDestination(transform.position); // Stop moving
+                    enemyAgent.SetDestination(transform.position);
 
                     if (attackCoroutine == null)
                     {
@@ -165,11 +163,9 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
-                // Stop moving if the player is out of chase distance
                 enemyAgent.SetDestination(transform.position);
             }
 
-            // Yield until the path is complete or next frame
             if (enemyAgent.pathPending || enemyAgent.pathStatus != NavMeshPathStatus.PathComplete)
             {
                 yield return new WaitForSeconds(0.1f);
