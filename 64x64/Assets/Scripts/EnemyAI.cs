@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     private GameObject player;
-    private GameObject UI;
 
     private NavMeshAgent enemyAgent;
 
@@ -32,7 +31,6 @@ public class EnemyAI : MonoBehaviour
     {
         enemyHealth = Random.Range(3, 6);
         player = FindObjectOfType<PlayerController>().gameObject;
-        UI = FindObjectOfType<UI>().gameObject;
         enemyAgent = GetComponent<NavMeshAgent>();
         StartCoroutine(MoveToNewLocation());
     }
@@ -211,8 +209,9 @@ public class EnemyAI : MonoBehaviour
         if (distanceToPlayer <= 1.5f && !hasDamagedPlayer)
         {
             hasDamagedPlayer = true;
-            StartCoroutine(player.GetComponent<PlayerController>().DamageShake());
-            StartCoroutine(UI.GetComponent<UI>().DamageIndicator());
+
+            player.GetComponent<PlayerController>().DamageEffects();
+
             player.GetComponent<PlayerController>().healthSlider.value--;
 
             if (player.GetComponent<PlayerController>().healthSlider.value <= 0)

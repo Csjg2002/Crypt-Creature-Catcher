@@ -56,7 +56,6 @@ public class SwordCollisionDetection : MonoBehaviour
 
             player.GetComponent<PlayerController>().SwordStamina();
 
-
             NavMeshAgent enemyAgent = enemyToAttack.GetComponent<NavMeshAgent>();
             if (enemyAgent != null)
             {

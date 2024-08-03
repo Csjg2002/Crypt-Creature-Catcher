@@ -32,15 +32,27 @@ public class PlayerController : MonoBehaviour
 
     private Coroutine decreaseStaminaCoroutine;
     private Coroutine refillStaminaCoroutine;
+    private Coroutine swordAnimCoroutine;
 
     public GameObject sword;
     private bool hasAttacked = false;
+
+    public GameObject[] gear;
+    private int currentGearIndex = 0;
+
+    private GameObject UI;
 
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Screen.SetResolution(400,400,false);
+        UI = FindObjectOfType<UI>().gameObject;
+
+        for (int i = 0; i < gear.Length; i++)
+        {
+            gear[i].SetActive(i == currentGearIndex);
+        }
     }
 
     // Update is called once per frame
@@ -56,6 +68,34 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Action();
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") != 0)
+        {
+            ScrollGear();
+        }
+        
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if(currentGearIndex != 0)
+            {
+                gear[currentGearIndex].SetActive(false);
+
+                currentGearIndex = 0;
+
+                gear[currentGearIndex].SetActive(true);
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if(currentGearIndex != 1)
+            {
+                gear[currentGearIndex].SetActive(false);
+
+                currentGearIndex = 1;
+
+                gear[currentGearIndex].SetActive(true);
+            }
         }
 
         CamLook();
@@ -299,25 +339,49 @@ public class PlayerController : MonoBehaviour
         renderCam.transform.localRotation = rcInitialRotation;
     }
 
+    void ScrollGear()
+    {
+        gear[currentGearIndex].SetActive(false);
+
+        currentGearIndex = (currentGearIndex + 1) % gear.Length;
+
+        gear[currentGearIndex].SetActive(true);
+    }
+
     private void Action()
     {
-        if(staminaSlider.value > 0)
+        if (currentGearIndex == 0)
         {
-            sword.gameObject.GetComponent<Animator>().speed = 1;
-
-            if(!hasAttacked)
+            if (staminaSlider.value > 0)
             {
-                sword.gameObject.GetComponent<Animator>().Play("Sword_Swing");
-                StartCoroutine(SwordAnimReset());
+                sword.gameObject.GetComponent<Animator>().speed = 1;
 
-            }
-            else
-            {
-                sword.gameObject.GetComponent<Animator>().Play("Sword_Swing2");
-                StopCoroutine(SwordAnimReset());
-            }
+                if (!hasAttacked)
+                {
+                    if (swordAnimCoroutine != null)
+                    {
+                        StopCoroutine(swordAnimCoroutine);
+                    }
+                    swordAnimCoroutine = StartCoroutine(SwordAnimReset());
+                    sword.gameObject.GetComponent<Animator>().Play("Sword_Swing");
+                }
+                else
+                {
+                    if (swordAnimCoroutine != null)
+                    {
+                        StopCoroutine(swordAnimCoroutine);
+                    }
 
-            hasAttacked = !hasAttacked;
+                    sword.gameObject.GetComponent<Animator>().Play("Sword_Swing2");
+                }
+
+                hasAttacked = !hasAttacked;
+                SwordStamina();
+            }
+        }
+        else
+        {
+            CatchCreature();
         }
     }
 
@@ -330,8 +394,9 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator SwordAnimReset()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1.5f);
         hasAttacked = false;
+        swordAnimCoroutine = null;
     }
 
     private void CatchCreature()
@@ -354,5 +419,11 @@ public class PlayerController : MonoBehaviour
     public void GameOver()
     {
         SceneManager.LoadScene("SampleScene");
+    }
+
+    public void DamageEffects()
+    {
+        StartCoroutine(DamageShake());
+        StartCoroutine(UI.GetComponent<UI>().DamageIndicator());
     }
 }
