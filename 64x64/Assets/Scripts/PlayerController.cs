@@ -252,6 +252,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public IEnumerator DamageShake()
+    {
+        Quaternion pcInitialRotation = playerCam.transform.localRotation;
+        Quaternion rcInitialRotation = renderCam.transform.localRotation;
+
+        float elapsed = 0f;
+
+        while (elapsed < 0.75f)
+        {
+            float yShake = Random.Range(-2f, 2f);
+            float zShake = Random.Range(-2f, 2f);
+
+            playerCam.transform.localRotation = pcInitialRotation * Quaternion.Euler(0, yShake, zShake);
+            renderCam.transform.localRotation = rcInitialRotation * Quaternion.Euler(0, yShake, zShake);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        playerCam.transform.localRotation = pcInitialRotation;
+        renderCam.transform.localRotation = rcInitialRotation;
+    }
+
     private void Action()
     {
         sword.gameObject.GetComponent<Animator>().speed = 1;

@@ -23,6 +23,7 @@ public class EnemyAI : MonoBehaviour
     private Coroutine attackCoroutine;
 
     private float distanceToPlayer;
+    private bool hasDamagedPlayer = false;
 
     // Start is called before the first frame update
     void Start()
@@ -194,27 +195,28 @@ public class EnemyAI : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        float initialWaitTime = 1.0f;
-        float attackDuration = 1.5f;
+        float attackCooldown = 1f;
         float elapsedTime = 0f;
 
         float waitStartTime = Time.time;
-        while (Time.time - waitStartTime < initialWaitTime)
+        while (Time.time - waitStartTime < attackCooldown)
         {
             if (distanceToPlayer > 1.5f)
             {
                 attackCoroutine = null;
+                hasDamagedPlayer = false;
                 yield break;
             }
 
             yield return null;
         }
 
-        // Attack loop
-        while (elapsedTime < attackDuration)
+        while (elapsedTime < attackCooldown)
         {
-            if (distanceToPlayer <= 1.5f)
+            if (distanceToPlayer <= 1.5f && !hasDamagedPlayer)
             {
+                hasDamagedPlayer = true;
+                StartCoroutine(player.GetComponent<PlayerController>().DamageShake());
                 StartCoroutine(UI.GetComponent<UI>().DamageIndicator());
                 player.GetComponent<PlayerController>().healthSlider.value--;
                 attackCoroutine = null;
@@ -226,5 +228,6 @@ public class EnemyAI : MonoBehaviour
         }
 
         attackCoroutine = null;
+        hasDamagedPlayer = false;
     }
 }
