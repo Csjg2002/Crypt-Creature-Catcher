@@ -25,6 +25,9 @@ public class EnemyAI : MonoBehaviour
     private bool hasDamagedPlayer = false;
 
     [HideInInspector] public float enemyHealth;
+    [HideInInspector] public int attackCount = 0;
+
+    public GameObject enemyBody;
 
     // Start is called before the first frame update
     void Start()
@@ -93,7 +96,7 @@ public class EnemyAI : MonoBehaviour
     {
         Vector3 lookDirection = player.transform.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(lookDirection);
-        transform.rotation = lookRotation;
+        enemyBody.transform.localRotation = lookRotation;
     }
 
     private IEnumerator MoveToNewLocation()

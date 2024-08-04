@@ -13,8 +13,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -111,13 +113,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 21228}
     - Class: 114
-      Script: {instanceID: 26408}
+      Script: {instanceID: 27710}
     - Class: 114
-      Script: {instanceID: 26416}
+      Script: {instanceID: 27718}
     - Class: 114
-      Script: {instanceID: 26422}
+      Script: {instanceID: 27724}
     - Class: 114
-      Script: {instanceID: 26424}
+      Script: {instanceID: 27726}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -429,7 +431,7 @@ ScriptsOnlyBuild:
     className: BaseInput
   - hash:
       serializedVersion: 2
-      Hash: 92123e9f726e8ad9a83d69f045123e4c
+      Hash: 192b6c14062a1593d8bb4bc49d31772e
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: EnemyAI
@@ -555,7 +557,7 @@ ScriptsOnlyBuild:
     className: UnityOnCancelMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 07598d53733839ac8f53171690a64a20
+      Hash: 677a0b52da3de60fa7e4227c1ab3a007
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: PlayerController

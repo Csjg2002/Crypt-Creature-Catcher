@@ -42,6 +42,8 @@ public class PlayerController : MonoBehaviour
 
     private GameObject UI;
 
+    private bool fullScreen;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -95,6 +97,20 @@ public class PlayerController : MonoBehaviour
                 currentGearIndex = 1;
 
                 gear[currentGearIndex].SetActive(true);
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.F11))
+        {
+            if(!fullScreen)
+            {
+                Screen.fullScreen = true;
+                fullScreen = true;
+            }
+            else
+            {
+                Screen.fullScreen= false;
+                fullScreen = false;
             }
         }
 
