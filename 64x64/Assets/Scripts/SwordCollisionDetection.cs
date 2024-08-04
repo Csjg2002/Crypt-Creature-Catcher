@@ -46,12 +46,16 @@ public class SwordCollisionDetection : MonoBehaviour
     {
         if (enemyToAttack != null)
         {
+            Vector3 snapPosition = new Vector3(enemyToAttack.transform.position.x, enemyToAttack.transform.position.y, player.transform.position.z + player.transform.forward.z * 1.5f);
+            enemyToAttack.transform.position = snapPosition;
+
             enemyToAttack.GetComponentInParent<EnemyAI>().enemyHealth--;
+            enemyToAttack.GetComponentInParent<EnemyAI>().hasBeenAttacked = true;
 
             if (enemyToAttack.GetComponentInParent<EnemyAI>().enemyHealth <= 0)
             {
                 shouldHitstop = true;
-                StartCoroutine(enemyHurtIndicator(enemyToAttack, 0.1f));
+                StartCoroutine(enemyHurtIndicator(enemyToAttack, 0.15f));
             }
             else
             {
@@ -74,10 +78,13 @@ public class SwordCollisionDetection : MonoBehaviour
                 }
 
                 shouldAttack = false;
-                StartCoroutine(enemyHurtIndicator(enemyToAttack, 0.05f));
+                StartCoroutine(enemyHurtIndicator(enemyToAttack, 0.1f));
             }
 
-            player.GetComponent<PlayerController>().SwordStamina();
+            if(!shouldHitstop)
+            {
+                StartCoroutine(enemyHurtIndicator(enemyToAttack, 0.05f));
+            } 
         }
     }
 
@@ -105,6 +112,7 @@ public class SwordCollisionDetection : MonoBehaviour
         }
 
         shouldHitstop = false;
+        enemyToAttack.GetComponentInParent<EnemyAI>().hasBeenAttacked = false;
 
         if (enemyToAttack.GetComponentInParent<EnemyAI>().enemyHealth > 0)
         {
@@ -114,5 +122,10 @@ public class SwordCollisionDetection : MonoBehaviour
         {
             Destroy(enemyToAttack.transform.parent.gameObject);
         }
+    }
+
+    public void ReactivateSwordSwing()
+    {
+        player.GetComponent<PlayerController>().canSwingSword = true;
     }
 }

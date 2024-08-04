@@ -16,6 +16,8 @@ public class EnemyAI : MonoBehaviour
     public float chaseDistance = 7f;
     public float chaseSpeed = 6f;
     public float normalSpeed = 3f;
+    public float zigzagAmount = 1f;
+    public float zigzagFrequency = 5f;
 
     private Coroutine moveCoroutine;
     private Coroutine chaseCoroutine;
@@ -28,6 +30,8 @@ public class EnemyAI : MonoBehaviour
     [HideInInspector] public int attackCount = 0;
 
     public GameObject enemyBody;
+    
+    [HideInInspector] public bool hasBeenAttacked = false;
 
     // Start is called before the first frame update
     void Start()
@@ -79,8 +83,11 @@ public class EnemyAI : MonoBehaviour
 
     private void StopChasing()
     {
+        Debug.Log("hi");
         isChasing = false;
         enemyAgent.speed = normalSpeed;
+        hasDamagedPlayer = false;
+
         if (chaseCoroutine != null)
         {
             StopCoroutine(chaseCoroutine);
@@ -122,7 +129,6 @@ public class EnemyAI : MonoBehaviour
 
                 if (Vector3.Distance(transform.position, destination) < 1)
                 {
-                    Debug.Log("Reached destination");
                     isMoving = false;
                     yield return new WaitForSeconds(Random.Range(3, 6));
                 }
@@ -163,19 +169,50 @@ public class EnemyAI : MonoBehaviour
 
     private IEnumerator ChasePlayer()
     {
+        Vector3 lastPosition = transform.position;
+        float stuckThreshold = 1f;
+
         while (isChasing)
         {
             distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
             if (distanceToPlayer > chaseDistance)
             {
-                StopChasing();
                 yield break;
             }
 
             if (distanceToPlayer > 1.5f && distanceToPlayer < chaseDistance)
             {
-                enemyAgent.SetDestination(player.transform.position);
+                Vector3 targetPosition = player.transform.position;
+                Vector3 directionToPlayer = (targetPosition - transform.position).normalized;
+
+                float time = Time.time * zigzagFrequency;
+                Vector3 zigzagOffset = new Vector3(
+                    Mathf.Sin(time) * zigzagAmount,
+                    0,
+                    Mathf.Cos(time) * zigzagAmount
+                );
+
+                Vector3 newDestination = targetPosition + zigzagOffset;
+
+                if (NavMesh.SamplePosition(newDestination, out NavMeshHit hit, 10f, NavMesh.AllAreas))
+                {
+                    newDestination = hit.position;
+                }
+                else
+                {
+                    newDestination = targetPosition;
+                }
+
+                enemyAgent.SetDestination(newDestination);
+
+                if (Vector3.Distance(transform.position, lastPosition) < stuckThreshold)
+                {
+                    newDestination = targetPosition + zigzagOffset * 0.5f;
+                    enemyAgent.SetDestination(newDestination);
+                }
+
+                lastPosition = transform.position;
             }
             else
             {
@@ -198,9 +235,8 @@ public class EnemyAI : MonoBehaviour
 
         while (elapsedTime < attackCooldown)
         {
-            if (distanceToPlayer > 1.5f)
+            if (distanceToPlayer > 1.5f || !isChasing || hasBeenAttacked)
             {
-                attackCoroutine = null;
                 hasDamagedPlayer = false;
                 yield break;
             }
@@ -209,20 +245,20 @@ public class EnemyAI : MonoBehaviour
             yield return null;
         }
 
-        if (distanceToPlayer <= 1.5f && !hasDamagedPlayer)
+        if (distanceToPlayer <= 1.5f && isChasing && !hasDamagedPlayer && !hasBeenAttacked)
         {
             hasDamagedPlayer = true;
+            player.transform.forward += player.transform.forward * 0.75f * -1f;
 
             player.GetComponent<PlayerController>().DamageEffects();
-
             player.GetComponent<PlayerController>().healthSlider.value--;
 
             if (player.GetComponent<PlayerController>().healthSlider.value <= 0)
             {
                 player.GetComponent<PlayerController>().GameOver();
             }
-
-            attackCoroutine = null;
         }
+
+        attackCoroutine = null;
     }
 }

@@ -6,6 +6,8 @@ ScriptsOnlyBuild:
     - PlayerController
     - SwordCollisionDetection
     - UI
+    Unity.AI.Navigation.Editor.dll:
+    - Unity.AI.Navigation.Editor.NavMeshAssetManager
     Unity.AI.Navigation.dll:
     - Unity.AI.Navigation.NavMeshSurface
     Unity.Rider.Editor.dll:
@@ -113,13 +115,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 21228}
     - Class: 114
-      Script: {instanceID: 27710}
+      Script: {instanceID: 76584}
     - Class: 114
-      Script: {instanceID: 27718}
+      Script: {instanceID: 76592}
     - Class: 114
-      Script: {instanceID: 27724}
+      Script: {instanceID: 76598}
     - Class: 114
-      Script: {instanceID: 27726}
+      Script: {instanceID: 76600}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -431,7 +433,7 @@ ScriptsOnlyBuild:
     className: BaseInput
   - hash:
       serializedVersion: 2
-      Hash: 192b6c14062a1593d8bb4bc49d31772e
+      Hash: 0d30bbbe8c81dffc369e16479f18cf57
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: EnemyAI
@@ -491,7 +493,7 @@ ScriptsOnlyBuild:
     className: PostProcessEffectSettings
   - hash:
       serializedVersion: 2
-      Hash: 5b29c2cf97ba477b883f55b605945e5f
+      Hash: ad8cbb00e940ee5993ce7002a4b6e69a
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: SwordCollisionDetection
@@ -557,7 +559,7 @@ ScriptsOnlyBuild:
     className: UnityOnCancelMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 677a0b52da3de60fa7e4227c1ab3a007
+      Hash: 9d9dc66c98237d77043518513c6c7df6
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: PlayerController

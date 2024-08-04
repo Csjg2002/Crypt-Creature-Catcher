@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject sword;
     private bool hasAttacked = false;
+    [HideInInspector] public bool canSwingSword = true;
 
     public GameObject[] gear;
     private int currentGearIndex = 0;
@@ -47,8 +48,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        Screen.SetResolution(400,400,false);
         UI = FindObjectOfType<UI>().gameObject;
 
         for (int i = 0; i < gear.Length; i++)
@@ -67,7 +68,7 @@ public class PlayerController : MonoBehaviour
             playerVelocity.y = -2;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && canSwingSword)
         {
             Action();
         }
@@ -112,6 +113,11 @@ public class PlayerController : MonoBehaviour
                 Screen.fullScreen= false;
                 fullScreen = false;
             }
+        }
+
+        if(Input.GetKeyDown (KeyCode.Slash))
+        {
+            GameOver();
         }
 
         CamLook();
@@ -393,6 +399,7 @@ public class PlayerController : MonoBehaviour
                     sword.gameObject.GetComponent<SwordCollisionDetection>().shouldAttack = true;
                 }
 
+                canSwingSword = false;
                 hasAttacked = !hasAttacked;
                 SwordStamina();
             }
