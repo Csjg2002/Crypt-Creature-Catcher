@@ -83,7 +83,6 @@ public class EnemyAI : MonoBehaviour
 
     private void StopChasing()
     {
-        Debug.Log("hi");
         isChasing = false;
         enemyAgent.speed = normalSpeed;
         hasDamagedPlayer = false;
@@ -101,7 +100,7 @@ public class EnemyAI : MonoBehaviour
 
     private void LookAtPlayer()
     {
-        Vector3 lookDirection = player.transform.position - transform.position;
+        Vector3 lookDirection = player.transform.position - enemyBody.transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(lookDirection);
         enemyBody.transform.localRotation = lookRotation;
     }
@@ -248,7 +247,9 @@ public class EnemyAI : MonoBehaviour
         if (distanceToPlayer <= 1.5f && isChasing && !hasDamagedPlayer && !hasBeenAttacked)
         {
             hasDamagedPlayer = true;
-            player.transform.forward += player.transform.forward * 0.75f * -1f;
+
+            player.GetComponent<CharacterController>().Move(enemyBody.transform.forward += player.transform.forward * 0.2f * Time.deltaTime);
+
 
             player.GetComponent<PlayerController>().DamageEffects();
             player.GetComponent<PlayerController>().healthSlider.value--;

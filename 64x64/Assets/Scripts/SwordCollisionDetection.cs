@@ -112,9 +112,9 @@ public class SwordCollisionDetection : MonoBehaviour
         }
 
         shouldHitstop = false;
-        enemyToAttack.GetComponentInParent<EnemyAI>().hasBeenAttacked = false;
+        enemy.GetComponentInParent<EnemyAI>().hasBeenAttacked = false;
 
-        if (enemyToAttack.GetComponentInParent<EnemyAI>().enemyHealth > 0)
+        if (enemy.GetComponentInParent<EnemyAI>().enemyHealth > 0)
         {
             enemy.GetComponent<SpriteRenderer>().material.color = Color.white;
         }

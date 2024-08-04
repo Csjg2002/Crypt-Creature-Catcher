@@ -6,8 +6,6 @@ ScriptsOnlyBuild:
     - PlayerController
     - SwordCollisionDetection
     - UI
-    Unity.AI.Navigation.Editor.dll:
-    - Unity.AI.Navigation.Editor.NavMeshAssetManager
     Unity.AI.Navigation.dll:
     - Unity.AI.Navigation.NavMeshSurface
     Unity.Rider.Editor.dll:
@@ -115,13 +113,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 21228}
     - Class: 114
-      Script: {instanceID: 76584}
+      Script: {instanceID: 126340}
     - Class: 114
-      Script: {instanceID: 76592}
+      Script: {instanceID: 126348}
     - Class: 114
-      Script: {instanceID: 76598}
+      Script: {instanceID: 126354}
     - Class: 114
-      Script: {instanceID: 76600}
+      Script: {instanceID: 126356}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
