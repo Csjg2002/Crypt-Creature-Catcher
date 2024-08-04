@@ -32,7 +32,7 @@ public class EnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyHealth = Random.Range(3, 6);
+        enemyHealth = Random.Range(3, 7);
         player = FindObjectOfType<PlayerController>().gameObject;
         enemyAgent = GetComponent<NavMeshAgent>();
         StartCoroutine(MoveToNewLocation());

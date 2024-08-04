@@ -11,6 +11,8 @@ public class SwordCollisionDetection : MonoBehaviour
     private bool canAttack = false;
     private bool shouldHitstop = false;
 
+    [HideInInspector] public bool shouldAttack = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +57,7 @@ public class SwordCollisionDetection : MonoBehaviour
             {
                 enemyToAttack.GetComponentInParent<EnemyAI>().attackCount++;
 
-                if (enemyToAttack.GetComponentInParent<EnemyAI>().attackCount >= 2)
+                if (enemyToAttack.GetComponentInParent<EnemyAI>().attackCount >= 2 && shouldAttack)
                 {
                     shouldHitstop = true;
                     enemyToAttack.GetComponentInParent<EnemyAI>().attackCount = 0;
@@ -71,6 +73,7 @@ public class SwordCollisionDetection : MonoBehaviour
                     }
                 }
 
+                shouldAttack = false;
                 StartCoroutine(enemyHurtIndicator(enemyToAttack, 0.05f));
             }
 

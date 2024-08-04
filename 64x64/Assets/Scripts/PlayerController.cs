@@ -380,6 +380,7 @@ public class PlayerController : MonoBehaviour
                     }
                     swordAnimCoroutine = StartCoroutine(SwordAnimReset());
                     sword.gameObject.GetComponent<Animator>().Play("Sword_Swing");
+                    sword.gameObject.GetComponent<SwordCollisionDetection>().shouldAttack = false;
                 }
                 else
                 {
@@ -389,6 +390,7 @@ public class PlayerController : MonoBehaviour
                     }
 
                     sword.gameObject.GetComponent<Animator>().Play("Sword_Swing2");
+                    sword.gameObject.GetComponent<SwordCollisionDetection>().shouldAttack = true;
                 }
 
                 hasAttacked = !hasAttacked;
