@@ -3,6 +3,8 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - CreatureAI
     - EnemyAI
+    - EnemyAIPass
+    - EnemyDead
     - PlayerController
     - SwordCollisionDetection
     - UI
@@ -13,10 +15,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -85,41 +85,45 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 16728}
+      Script: {instanceID: 16704}
     - Class: 114
-      Script: {instanceID: 16766}
+      Script: {instanceID: 16730}
     - Class: 114
-      Script: {instanceID: 17486}
+      Script: {instanceID: 16768}
     - Class: 114
-      Script: {instanceID: 17782}
+      Script: {instanceID: 17488}
     - Class: 114
-      Script: {instanceID: 17984}
+      Script: {instanceID: 17784}
     - Class: 114
-      Script: {instanceID: 18648}
+      Script: {instanceID: 17986}
     - Class: 114
-      Script: {instanceID: 19058}
+      Script: {instanceID: 18650}
     - Class: 114
       Script: {instanceID: 19536}
     - Class: 114
-      Script: {instanceID: 20126}
+      Script: {instanceID: 19546}
     - Class: 114
-      Script: {instanceID: 20138}
+      Script: {instanceID: 20128}
     - Class: 114
-      Script: {instanceID: 20384}
+      Script: {instanceID: 20140}
     - Class: 114
-      Script: {instanceID: 20868}
+      Script: {instanceID: 20386}
     - Class: 114
-      Script: {instanceID: 20992}
+      Script: {instanceID: 20870}
     - Class: 114
-      Script: {instanceID: 21228}
+      Script: {instanceID: 20962}
     - Class: 114
-      Script: {instanceID: 126340}
+      Script: {instanceID: 20996}
     - Class: 114
-      Script: {instanceID: 126348}
+      Script: {instanceID: 21232}
     - Class: 114
-      Script: {instanceID: 126354}
+      Script: {instanceID: 44640}
     - Class: 114
-      Script: {instanceID: 126356}
+      Script: {instanceID: 44648}
+    - Class: 114
+      Script: {instanceID: 44654}
+    - Class: 114
+      Script: {instanceID: 44656}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -131,6 +135,10 @@ ScriptsOnlyBuild:
     - Class: 195
       Script: {instanceID: 0}
     - Class: 196
+      Script: {instanceID: 0}
+    - Class: 198
+      Script: {instanceID: 0}
+    - Class: 199
       Script: {instanceID: 0}
     - Class: 212
       Script: {instanceID: 0}
@@ -147,6 +155,12 @@ ScriptsOnlyBuild:
     - Class: 258
       Script: {instanceID: 0}
   scriptHashData:
+  - hash:
+      serializedVersion: 2
+      Hash: ad8cbb00e940ee5993ce7002a4b6e69a
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: SwordCollisionDetection
   - hash:
       serializedVersion: 2
       Hash: 540882762544409cc4530e60db00e951
@@ -431,7 +445,7 @@ ScriptsOnlyBuild:
     className: BaseInput
   - hash:
       serializedVersion: 2
-      Hash: 0d30bbbe8c81dffc369e16479f18cf57
+      Hash: 2647ec87137a77b0c5e308e1660eaa7e
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: EnemyAI
@@ -489,12 +503,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Postprocessing.Runtime
     namespaceName: UnityEngine.Rendering.PostProcessing
     className: PostProcessEffectSettings
-  - hash:
-      serializedVersion: 2
-      Hash: ad8cbb00e940ee5993ce7002a4b6e69a
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: SwordCollisionDetection
   - hash:
       serializedVersion: 2
       Hash: 4718916586b3818eb69bf65df61f0f3a
@@ -557,10 +565,16 @@ ScriptsOnlyBuild:
     className: UnityOnCancelMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 9d9dc66c98237d77043518513c6c7df6
+      Hash: dc6f05378770321ad33105c639cc1b60
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: PlayerController
+  - hash:
+      serializedVersion: 2
+      Hash: fef737c6a1a3321a531bb063a3864363
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: EnemyDead
   - hash:
       serializedVersion: 2
       Hash: 80a72b656b55a7a1fc92e1a02151ea22
@@ -765,6 +779,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UI
     className: AspectRatioFitter
+  - hash:
+      serializedVersion: 2
+      Hash: 85192f20d5eac45b694f72941f5023ca
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: EnemyAIPass
   - hash:
       serializedVersion: 2
       Hash: fb509e758d062d46ec18e77074a97b1d

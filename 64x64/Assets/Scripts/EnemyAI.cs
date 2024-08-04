@@ -33,6 +33,8 @@ public class EnemyAI : MonoBehaviour
     
     [HideInInspector] public bool hasBeenAttacked = false;
 
+    public GameObject deadSwitch;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +66,9 @@ public class EnemyAI : MonoBehaviour
         }
 
         LookAtPlayer();
+
+        float speed = enemyAgent.velocity.magnitude;
+        enemyBody.GetComponent<Animator>().SetFloat("Speed", speed);
     }
 
     private void StartChasing()
@@ -186,10 +191,7 @@ public class EnemyAI : MonoBehaviour
                 Vector3 directionToPlayer = (targetPosition - transform.position).normalized;
 
                 float time = Time.time * zigzagFrequency;
-                Vector3 zigzagOffset = new Vector3(
-                    Mathf.Sin(time) * zigzagAmount,
-                    0,
-                    Mathf.Cos(time) * zigzagAmount
+                Vector3 zigzagOffset = new Vector3(Mathf.Sin(time) * zigzagAmount,0,Mathf.Cos(time) * zigzagAmount
                 );
 
                 Vector3 newDestination = targetPosition + zigzagOffset;
@@ -229,6 +231,10 @@ public class EnemyAI : MonoBehaviour
 
     private IEnumerator Attack()
     {
+        if (hasBeenAttacked) yield break;
+
+        enemyBody.GetComponent<Animator>().Play("Attack");
+
         float attackCooldown = 1f;
         float elapsedTime = 0f;
 
@@ -237,6 +243,8 @@ public class EnemyAI : MonoBehaviour
             if (distanceToPlayer > 1.5f || !isChasing || hasBeenAttacked)
             {
                 hasDamagedPlayer = false;
+                attackCoroutine = null;
+                StopChasing();
                 yield break;
             }
 
@@ -261,5 +269,12 @@ public class EnemyAI : MonoBehaviour
         }
 
         attackCoroutine = null;
+        StopChasing();
+    }
+
+    public void Death()
+    {
+        Instantiate(deadSwitch, enemyBody.gameObject.transform.position, enemyBody.gameObject.transform.rotation);
+        Destroy(this.gameObject);
     }
 }

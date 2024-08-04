@@ -22,6 +22,7 @@ public class SwordCollisionDetection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -48,6 +49,8 @@ public class SwordCollisionDetection : MonoBehaviour
         {
             Vector3 snapPosition = new Vector3(enemyToAttack.transform.position.x, enemyToAttack.transform.position.y, player.transform.position.z + player.transform.forward.z * 1.5f);
             enemyToAttack.transform.position = snapPosition;
+
+            StartCoroutine(player.GetComponent<PlayerController>().SwordAttackCameraShake(0.2f,0.1f));
 
             enemyToAttack.GetComponentInParent<EnemyAI>().enemyHealth--;
             enemyToAttack.GetComponentInParent<EnemyAI>().hasBeenAttacked = true;
@@ -78,12 +81,12 @@ public class SwordCollisionDetection : MonoBehaviour
                 }
 
                 shouldAttack = false;
-                StartCoroutine(enemyHurtIndicator(enemyToAttack, 0.1f));
+                StartCoroutine(enemyHurtIndicator(enemyToAttack, 0.125f));
             }
 
             if(!shouldHitstop)
             {
-                StartCoroutine(enemyHurtIndicator(enemyToAttack, 0.05f));
+                StartCoroutine(enemyHurtIndicator(enemyToAttack, 0.1f));
             } 
         }
     }
@@ -113,19 +116,21 @@ public class SwordCollisionDetection : MonoBehaviour
 
         shouldHitstop = false;
         enemy.GetComponentInParent<EnemyAI>().hasBeenAttacked = false;
+        enemy.GetComponent<SpriteRenderer>().material.color = Color.white;
 
-        if (enemy.GetComponentInParent<EnemyAI>().enemyHealth > 0)
+        if (enemy.GetComponentInParent<EnemyAI>().enemyHealth <= 0)
         {
-            enemy.GetComponent<SpriteRenderer>().material.color = Color.white;
-        }
-        else
-        {
-            Destroy(enemyToAttack.transform.parent.gameObject);
+            enemyToAttack.GetComponent<Animator>().Play("Death");
         }
     }
 
     public void ReactivateSwordSwing()
     {
         player.GetComponent<PlayerController>().canSwingSword = true;
+    }
+
+    public void DeactivateSwordTrail()
+    {
+        player.GetComponent<PlayerController>().SwordTrailDeactivate();
     }
 }

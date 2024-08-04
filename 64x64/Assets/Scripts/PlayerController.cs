@@ -33,8 +33,10 @@ public class PlayerController : MonoBehaviour
     private Coroutine decreaseStaminaCoroutine;
     private Coroutine refillStaminaCoroutine;
     private Coroutine swordAnimCoroutine;
+    private Coroutine swordTrailCoroutine;
 
     public GameObject sword;
+    public GameObject swordTrail;
     private bool hasAttacked = false;
     [HideInInspector] public bool canSwingSword = true;
 
@@ -387,6 +389,7 @@ public class PlayerController : MonoBehaviour
                     swordAnimCoroutine = StartCoroutine(SwordAnimReset());
                     sword.gameObject.GetComponent<Animator>().Play("Sword_Swing");
                     sword.gameObject.GetComponent<SwordCollisionDetection>().shouldAttack = false;
+                    swordTrail.SetActive(true);
                 }
                 else
                 {
@@ -397,11 +400,22 @@ public class PlayerController : MonoBehaviour
 
                     sword.gameObject.GetComponent<Animator>().Play("Sword_Swing2");
                     sword.gameObject.GetComponent<SwordCollisionDetection>().shouldAttack = true;
+                    swordTrail.SetActive(true);
                 }
 
                 canSwingSword = false;
                 hasAttacked = !hasAttacked;
                 SwordStamina();
+
+                if(swordTrailCoroutine != null)
+                {
+                    StopCoroutine (swordTrailCoroutine);
+                    swordTrailCoroutine = StartCoroutine(SwordTrailReset());
+                }
+                else
+                {
+                    swordTrailCoroutine = StartCoroutine(SwordTrailReset());
+                }
             }
         }
         else
@@ -415,6 +429,22 @@ public class PlayerController : MonoBehaviour
         staminaSlider.value--;
         Sprint();
         Walk();
+    }
+
+    private IEnumerator SwordTrailReset()
+    {
+        yield return new WaitForSeconds(0.9f);
+        SwordTrailDeactivate();
+    }
+
+    public void SwordTrailDeactivate()
+    {
+        swordTrail.SetActive(false);
+        if(swordTrailCoroutine != null)
+        {
+            StopCoroutine(swordTrailCoroutine);
+            swordTrailCoroutine = null;
+        }
     }
 
     private IEnumerator SwordAnimReset()
@@ -450,5 +480,21 @@ public class PlayerController : MonoBehaviour
     {
         StartCoroutine(DamageShake());
         StartCoroutine(UI.GetComponent<UI>().DamageIndicator());
+    }
+
+    public IEnumerator SwordAttackCameraShake(float duration, float magnitude)
+    {
+        Vector3 originalPos = transform.localPosition;
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            float percentComplete = elapsed / duration;
+            float damping = Mathf.Clamp01(1 - (percentComplete * 1));
+            transform.localPosition = originalPos + Random.insideUnitSphere * magnitude * damping;
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        transform.localPosition = originalPos;
     }
 }
