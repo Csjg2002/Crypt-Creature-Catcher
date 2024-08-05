@@ -128,12 +128,17 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Events:
 <<<<<<< HEAD
   - time: 1.0833334
 =======
   - time: 1.5833334
 >>>>>>> parent of b84bc49 (Enemy Death Fix)
+=======
+  m_Events:
+  - time: 1.0833334
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
 =======
   m_Events:
   - time: 1.0833334
@@ -145,8 +150,11 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   m_Events: []
 >>>>>>> parent of f572b0c (Merge branch 'main' of https://github.com/Csjg2002/Crypt-Creature-Catcher)
+=======
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
 =======
 >>>>>>> parent of a20f8d7 (enemy attack + death anim updates)

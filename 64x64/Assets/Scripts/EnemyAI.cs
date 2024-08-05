@@ -236,6 +236,7 @@ public class EnemyAI : MonoBehaviour
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         enemyBody.GetComponent<Animator>().Play("Attack");
 
 =======
@@ -244,6 +245,8 @@ public class EnemyAI : MonoBehaviour
         enemyBody.GetComponent<Animator>().Play("Attack");
 
 >>>>>>> parent of b84bc49 (Enemy Death Fix)
+=======
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
 =======
 >>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
         float attackCooldown = 1f;

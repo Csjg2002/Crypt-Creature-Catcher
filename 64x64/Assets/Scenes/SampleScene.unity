@@ -674,6 +674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_AgentTypeID: 0
   m_CollectObjects: 0
   m_Size: {x: 10, y: 10, z: 10}
@@ -693,6 +694,8 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: c99f116fc8dc6df40b5889cb94bb2005, type: 2}
   m_BuildHeightMesh: 0
+=======
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
 =======
 >>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
 --- !u!4 &111099160

@@ -1,6 +1,7 @@
 { "cat":"", "pid":12345, "tid":0, "ts":0, "ph":"M", "name":"process_name", "args": { "name":"bee_backend" } }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ,{ "pid":12345, "tid":0, "ts":1722860831666103, "dur":1449, "ph":"X", "name": "DriverInitData",  "args": { "detail":"" }}
 ,{ "pid":12345, "tid":0, "ts":1722860831667560, "dur":444, "ph":"X", "name": "RemoveStaleOutputs",  "args": { "detail":"" }}
 ,{ "pid":12345, "tid":0, "ts":1722860831668075, "dur":208, "ph":"X", "name": "BuildQueueInit",  "args": { "detail":"" }}
@@ -767,6 +768,8 @@
 ,{ "pid":12345, "tid":0, "ts":1722801756085351, "dur":551, "ph":"X", "name": "ProfilerWriteOutput" }
 >>>>>>> parent of b84bc49 (Enemy Death Fix)
 =======
+=======
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
 ,{ "pid":12345, "tid":0, "ts":1722856882613740, "dur":1537, "ph":"X", "name": "DriverInitData",  "args": { "detail":"" }}
 ,{ "pid":12345, "tid":0, "ts":1722856882615285, "dur":496, "ph":"X", "name": "RemoveStaleOutputs",  "args": { "detail":"" }}
 ,{ "pid":12345, "tid":0, "ts":1722856882615858, "dur":240, "ph":"X", "name": "BuildQueueInit",  "args": { "detail":"" }}
@@ -1455,5 +1458,8 @@
 ,{ "pid":12345, "tid":12, "ts":1722856882644194, "dur":464, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
 ,{ "pid":12345, "tid":12, "ts":1722856882644702, "dur":132703, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
 ,{ "pid":12345, "tid":0, "ts":1722856882787220, "dur":1549, "ph":"X", "name": "ProfilerWriteOutput" }
+<<<<<<< HEAD
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
+=======
 >>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
 ,
