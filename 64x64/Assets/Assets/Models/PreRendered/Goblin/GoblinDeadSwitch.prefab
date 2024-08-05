@@ -74,7 +74,19 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: 3bd330faddfbb9d469bea7e23194c755, type: 3}
+=======
+  m_Sprite: {fileID: 21300000, guid: 2d77794a7a7f4d34a90c080c03e16fc4, type: 3}
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
+=======
+  m_Sprite: {fileID: 21300000, guid: 3bd330faddfbb9d469bea7e23194c755, type: 3}
+>>>>>>> parent of b84bc49 (Enemy Death Fix)
+=======
+  m_Sprite: {fileID: 21300000, guid: 2d77794a7a7f4d34a90c080c03e16fc4, type: 3}
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
