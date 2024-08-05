@@ -14101,6 +14101,10 @@ PrefabInstance:
       propertyPath: m_AllowDynamicResolution
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8260777046364427710, guid: 3337544985ed7cc4b9d02d757500216c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6ba092fc843f0c54dbf13ef95d3d5ad3, type: 2}
     - target: {fileID: 8615937780572427911, guid: 3337544985ed7cc4b9d02d757500216c, type: 3}
       propertyPath: m_Size.y
       value: 2
