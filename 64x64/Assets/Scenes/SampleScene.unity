@@ -673,6 +673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   m_AgentTypeID: 0
   m_CollectObjects: 0
   m_Size: {x: 10, y: 10, z: 10}
@@ -692,6 +693,8 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: c99f116fc8dc6df40b5889cb94bb2005, type: 2}
   m_BuildHeightMesh: 0
+=======
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
 --- !u!4 &111099160
 Transform:
   m_ObjectHideFlags: 0
