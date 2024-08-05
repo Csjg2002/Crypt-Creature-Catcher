@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EnemyAIPass : MonoBehaviour
 {
-    public void Attack()
+    public void DeathPass()
     {
-        this.gameObject.transform.parent.gameObject.GetComponent<EnemyAI>().StartAttack();
+        this.gameObject.transform.parent.GetComponent<EnemyAI>().Death();
     }
+
+
 }

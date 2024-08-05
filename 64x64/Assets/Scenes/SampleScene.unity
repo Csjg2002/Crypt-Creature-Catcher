@@ -673,25 +673,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.033333335
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 98b7e005804fccc498f16c0ae381cee2, type: 2}
-  m_BuildHeightMesh: 0
 --- !u!4 &111099160
 Transform:
   m_ObjectHideFlags: 0
@@ -13993,6 +13974,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 111435181388560562, guid: 3337544985ed7cc4b9d02d757500216c, type: 3}
+      propertyPath: net
+      value: 
+      objectReference: {fileID: 1266271542136289952}
+    - target: {fileID: 111435181388560562, guid: 3337544985ed7cc4b9d02d757500216c, type: 3}
       propertyPath: swordTrail
       value: 
       objectReference: {fileID: 183104448}
@@ -14120,6 +14105,10 @@ PrefabInstance:
       propertyPath: m_AllowDynamicResolution
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8260777046364427710, guid: 3337544985ed7cc4b9d02d757500216c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6ba092fc843f0c54dbf13ef95d3d5ad3, type: 2}
     - target: {fileID: 8615937780572427911, guid: 3337544985ed7cc4b9d02d757500216c, type: 3}
       propertyPath: m_Size.y
       value: 2
@@ -14132,10 +14121,6 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8750734992082171040, guid: 3337544985ed7cc4b9d02d757500216c, type: 3}
-      propertyPath: deadSwitch
-      value: 
-      objectReference: {fileID: 4164513447630927059, guid: 5ef929249d534bf4e8d1ad685e300a18, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
