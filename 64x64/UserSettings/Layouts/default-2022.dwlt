@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Project
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 321}
   m_MaxSize: {x: 10000, y: 10000}
@@ -446,7 +446,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Animations
+    - Assets/Assets/Materials
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -454,15 +454,15 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Animations
+  - Assets/Assets/Materials
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Cameron\Documents\GitHub\Crypt-Creature-Catcher\64x64
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 60}
-    m_SelectedIDs: 6a630000
-    m_LastClickedID: 25450
+    m_SelectedIDs: 6e630000
+    m_LastClickedID: 25454
     m_ExpandedIDs: 00000000486300004a6300004c63000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -518,7 +518,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000745f00003a620000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -633,7 +633,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 30eeffff
+      m_ExpandedIDs: 30eeffff8e5e0000d8600000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1026,9 +1026,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.58294433, y: -1.0637951, z: 4.686159}
+    m_Target: {x: 6.2078257, y: -5.159099, z: 15.462815}
     speed: 2
-    m_Value: {x: -0.58294433, y: -1.0637951, z: 4.686159}
+    m_Value: {x: 6.2078257, y: -5.159099, z: 15.462815}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1074,13 +1074,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.23230879, y: 0.6155357, z: -0.19670525, w: -0.7269507}
+    m_Target: {x: -0.29885024, y: -0.42212993, z: 0.14970855, w: -0.8426688}
     speed: 2
-    m_Value: {x: -0.23121788, y: 0.61582947, z: -0.19578153, w: -0.72729766}
+    m_Value: {x: -0.29758465, y: -0.42235225, z: 0.14907455, w: -0.8431126}
   m_Size:
     m_Target: 10
     speed: 2
-    m_Value: 11.223352
+    m_Value: 10
   m_Ortho:
     m_Target: 0
     speed: 2
