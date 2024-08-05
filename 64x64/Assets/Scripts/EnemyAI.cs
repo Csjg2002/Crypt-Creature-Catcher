@@ -33,8 +33,6 @@ public class EnemyAI : MonoBehaviour
     
     [HideInInspector] public bool hasBeenAttacked = false;
 
-    public GameObject deadSwitch;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -218,22 +216,24 @@ public class EnemyAI : MonoBehaviour
             else
             {
                 enemyAgent.SetDestination(transform.position);
-
-                if (attackCoroutine == null)
-                {
-                    attackCoroutine = StartCoroutine(Attack());
-                }
+                enemyBody.GetComponent<Animator>().Play("Attack");
             }
 
             yield return null;
         }
     }
 
+    public void StartAttack()
+    {
+        if (attackCoroutine == null)
+        {
+            attackCoroutine = StartCoroutine(Attack());
+        }
+    }
+
     private IEnumerator Attack()
     {
         if (hasBeenAttacked) yield break;
-
-        enemyBody.GetComponent<Animator>().Play("Attack");
 
         float attackCooldown = 1f;
         float elapsedTime = 0f;
@@ -270,11 +270,5 @@ public class EnemyAI : MonoBehaviour
 
         attackCoroutine = null;
         StopChasing();
-    }
-
-    public void Death()
-    {
-        Instantiate(deadSwitch, enemyBody.gameObject.transform.position, enemyBody.gameObject.transform.rotation);
-        Destroy(this.gameObject);
     }
 }

@@ -14181,6 +14181,10 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8750734992082171040, guid: 3337544985ed7cc4b9d02d757500216c, type: 3}
+      propertyPath: deadSwitch
+      value: 
+      objectReference: {fileID: 4164513447630927059, guid: 5ef929249d534bf4e8d1ad685e300a18, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

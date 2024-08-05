@@ -15,8 +15,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -85,19 +87,19 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 16704}
+      Script: {instanceID: 16728}
     - Class: 114
-      Script: {instanceID: 16730}
+      Script: {instanceID: 16766}
     - Class: 114
-      Script: {instanceID: 16768}
+      Script: {instanceID: 17486}
     - Class: 114
-      Script: {instanceID: 17488}
+      Script: {instanceID: 17782}
     - Class: 114
-      Script: {instanceID: 17784}
+      Script: {instanceID: 17984}
     - Class: 114
-      Script: {instanceID: 17986}
+      Script: {instanceID: 18648}
     - Class: 114
-      Script: {instanceID: 18650}
+      Script: {instanceID: 19058}
     - Class: 114
       Script: {instanceID: 19536}
     - Class: 114
@@ -117,13 +119,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 21232}
     - Class: 114
-      Script: {instanceID: 44640}
+      Script: {instanceID: 52170}
     - Class: 114
-      Script: {instanceID: 44648}
+      Script: {instanceID: 52174}
     - Class: 114
-      Script: {instanceID: 44654}
+      Script: {instanceID: 52180}
     - Class: 114
-      Script: {instanceID: 44656}
+      Script: {instanceID: 52182}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -155,12 +157,6 @@ ScriptsOnlyBuild:
     - Class: 258
       Script: {instanceID: 0}
   scriptHashData:
-  - hash:
-      serializedVersion: 2
-      Hash: ad8cbb00e940ee5993ce7002a4b6e69a
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: SwordCollisionDetection
   - hash:
       serializedVersion: 2
       Hash: 540882762544409cc4530e60db00e951
@@ -445,7 +441,7 @@ ScriptsOnlyBuild:
     className: BaseInput
   - hash:
       serializedVersion: 2
-      Hash: 2647ec87137a77b0c5e308e1660eaa7e
+      Hash: 0d30bbbe8c81dffc369e16479f18cf57
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: EnemyAI
@@ -503,6 +499,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Postprocessing.Runtime
     namespaceName: UnityEngine.Rendering.PostProcessing
     className: PostProcessEffectSettings
+  - hash:
+      serializedVersion: 2
+      Hash: 83fd8676db3d9dbd6226cc6eb0412e7e
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: SwordCollisionDetection
   - hash:
       serializedVersion: 2
       Hash: 4718916586b3818eb69bf65df61f0f3a
@@ -571,7 +573,7 @@ ScriptsOnlyBuild:
     className: PlayerController
   - hash:
       serializedVersion: 2
-      Hash: fef737c6a1a3321a531bb063a3864363
+      Hash: 0feb5e239fe05de97687ca5f1e0887dd
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: EnemyDead

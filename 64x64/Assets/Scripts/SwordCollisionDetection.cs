@@ -13,6 +13,8 @@ public class SwordCollisionDetection : MonoBehaviour
 
     [HideInInspector] public bool shouldAttack = false;
 
+    public GameObject deadSwitch;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -81,7 +83,7 @@ public class SwordCollisionDetection : MonoBehaviour
                 }
 
                 shouldAttack = false;
-                StartCoroutine(enemyHurtIndicator(enemyToAttack, 0.125f));
+                StartCoroutine(enemyHurtIndicator(enemyToAttack, 0.15f));
             }
 
             if(!shouldHitstop)
@@ -120,7 +122,8 @@ public class SwordCollisionDetection : MonoBehaviour
 
         if (enemy.GetComponentInParent<EnemyAI>().enemyHealth <= 0)
         {
-            enemyToAttack.GetComponent<Animator>().Play("Death");
+            Instantiate(deadSwitch, enemy.gameObject.transform.position, enemy.gameObject.transform.rotation);
+            Destroy(enemy.transform.parent.gameObject);
         }
     }
 
