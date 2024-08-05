@@ -49,7 +49,11 @@ MonoBehaviour:
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
   controlID: 107
+=======
+  controlID: 52
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
 =======
   controlID: 52
 >>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
@@ -290,6 +294,7 @@ MonoBehaviour:
     width: 1103
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     height: 759
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
@@ -301,15 +306,21 @@ MonoBehaviour:
   m_ActualView: {fileID: 17}
 >>>>>>> parent of b84bc49 (Enemy Death Fix)
 =======
+=======
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
     height: 756
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 17}
+<<<<<<< HEAD
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
+=======
 >>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
   m_Panes:
   - {fileID: 16}
   - {fileID: 17}
   - {fileID: 12}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   m_Selected: 0
@@ -318,6 +329,10 @@ MonoBehaviour:
   m_Selected: 1
   m_LastSelected: 0
 >>>>>>> parent of b84bc49 (Enemy Death Fix)
+=======
+  m_Selected: 1
+  m_LastSelected: 2
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
 =======
   m_Selected: 1
   m_LastSelected: 2
@@ -506,7 +521,11 @@ MonoBehaviour:
     m_SearchArea: 1
     m_Folders:
 <<<<<<< HEAD
+<<<<<<< HEAD
     - Assets/Scripts
+=======
+    - Assets/Assets/Models/PreRendered/Goblin
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
 =======
     - Assets/Assets/Models/PreRendered/Goblin
 >>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
@@ -518,7 +537,11 @@ MonoBehaviour:
   m_StartGridSize: 64
   m_LastFolders:
 <<<<<<< HEAD
+<<<<<<< HEAD
   - Assets/Scripts
+=======
+  - Assets/Assets/Models/PreRendered/Goblin
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
 =======
   - Assets/Assets/Models/PreRendered/Goblin
 >>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
@@ -527,6 +550,7 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     scrollPos: {x: 0, y: 190}
@@ -540,10 +564,15 @@ MonoBehaviour:
     m_ExpandedIDs: 0000000022600000246000002660000000ca9a3b
 >>>>>>> parent of b84bc49 (Enemy Death Fix)
 =======
+=======
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
     scrollPos: {x: 0, y: 62}
     m_SelectedIDs: 2a600000
     m_LastClickedID: 24618
     m_ExpandedIDs: 0000000026600000286000002a600000ce600000de79000000ca9a3b
+<<<<<<< HEAD
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
+=======
 >>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -574,10 +603,14 @@ MonoBehaviour:
     m_LastClickedID: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     m_ExpandedIDs: 000000006e6100007061000072610000
 =======
     m_ExpandedIDs: 00000000226000002460000026600000
 >>>>>>> parent of b84bc49 (Enemy Death Fix)
+=======
+    m_ExpandedIDs: 0000000026600000286000002a600000
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
 =======
     m_ExpandedIDs: 0000000026600000286000002a600000
 >>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
@@ -728,10 +761,14 @@ MonoBehaviour:
       m_LastClickedID: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       m_ExpandedIDs: 2efaffff
 =======
       m_ExpandedIDs: 6ee8ffffb2e8ffff02ecffff00fbffff
 >>>>>>> parent of b84bc49 (Enemy Death Fix)
+=======
+      m_ExpandedIDs: 7e8affffc08affff108effffb298fffff498ffff4a9cffff30bcffff72bcffffc4bfffff2ef9ffff00fbffff0c5b0000405b00009c5b0000e0ce0000
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
 =======
       m_ExpandedIDs: 7e8affffc08affff108effffb298fffff498ffff4a9cffff30bcffff72bcffffc4bfffff2ef9ffff00fbffff0c5b0000405b00009c5b0000e0ce0000
 >>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
@@ -782,7 +819,11 @@ MonoBehaviour:
     y: 73
     width: 1101
 <<<<<<< HEAD
+<<<<<<< HEAD
     height: 738
+=======
+    height: 734
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
 =======
     height: 734
 >>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
@@ -1107,6 +1148,7 @@ MonoBehaviour:
   m_Position:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     m_Target: {x: 0, y: 0, z: 0}
     speed: 2
     m_Value: {x: 0, y: 0, z: 0}
@@ -1115,6 +1157,11 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 43.34721, y: -23.26554, z: -16.709698}
 >>>>>>> parent of b84bc49 (Enemy Death Fix)
+=======
+    m_Target: {x: 16.556751, y: -19.781324, z: -19.708918}
+    speed: 2
+    m_Value: {x: 16.556751, y: -19.781324, z: -19.708918}
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
 =======
     m_Target: {x: 16.556751, y: -19.781324, z: -19.708918}
     speed: 2
@@ -1167,6 +1214,7 @@ MonoBehaviour:
   m_Rotation:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     m_Target: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
     speed: 2
     m_Value: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
@@ -1179,6 +1227,15 @@ MonoBehaviour:
     m_Target: 10
     speed: 2
     m_Value: 10
+=======
+    m_Target: {x: -0.08571117, y: -0.9142169, z: 0.2986923, w: -0.26105055}
+    speed: 2
+    m_Value: {x: -0.08568961, y: -0.91398686, z: 0.29861712, w: -0.26098487}
+  m_Size:
+    m_Target: 25.469513
+    speed: 2
+    m_Value: 25.469513
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
 =======
     m_Target: {x: -0.08571117, y: -0.9142169, z: 0.2986923, w: -0.26105055}
     speed: 2

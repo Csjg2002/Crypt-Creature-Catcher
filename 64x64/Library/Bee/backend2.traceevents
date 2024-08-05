@@ -1,5 +1,6 @@
 { "cat":"", "pid":12345, "tid":0, "ts":0, "ph":"M", "name":"process_name", "args": { "name":"bee_backend" } }
 <<<<<<< HEAD
+<<<<<<< HEAD
 ,{ "pid":12345, "tid":0, "ts":1722860828761059, "dur":30538, "ph":"X", "name": "DriverInitData",  "args": { "detail":"" }}
 ,{ "pid":12345, "tid":0, "ts":1722860828791601, "dur":296, "ph":"X", "name": "RemoveStaleOutputs",  "args": { "detail":"" }}
 ,{ "pid":12345, "tid":0, "ts":1722860828791964, "dur":212, "ph":"X", "name": "BuildQueueInit",  "args": { "detail":"" }}
@@ -951,6 +952,8 @@
 ,{ "pid":12345, "tid":12, "ts":1722860828825734, "dur":383139, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
 ,{ "pid":12345, "tid":0, "ts":1722860829218831, "dur":2362, "ph":"X", "name": "ProfilerWriteOutput" }
 =======
+=======
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
 ,{ "pid":12345, "tid":0, "ts":1722801753839518, "dur":18327, "ph":"X", "name": "DriverInitData",  "args": { "detail":"" }}
 ,{ "pid":12345, "tid":0, "ts":1722801753857850, "dur":247, "ph":"X", "name": "RemoveStaleOutputs",  "args": { "detail":"" }}
 ,{ "pid":12345, "tid":0, "ts":1722801753858148, "dur":227, "ph":"X", "name": "BuildQueueInit",  "args": { "detail":"" }}
@@ -1272,5 +1275,8 @@
 ,{ "pid":12345, "tid":12, "ts":1722801753990909, "dur":757, "ph":"X", "name": "CopyFiles",  "args": { "detail":"Library/Bee/PlayerScriptAssemblies/Assembly-CSharp.dll" }}
 ,{ "pid":12345, "tid":12, "ts":1722801753991674, "dur":678861, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
 ,{ "pid":12345, "tid":0, "ts":1722801754678907, "dur":796, "ph":"X", "name": "ProfilerWriteOutput" }
+<<<<<<< HEAD
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
+=======
 >>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
 ,

@@ -127,6 +127,7 @@
 {"msg":"enqueueNode","enqueuedNodeAnnotation":"MovedFromExtractorCombine Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.dll.mvfrm","enqueuedNodeIndex":125,"enqueueingNodeAnnotation":"Csc Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.dll (+2 others)","enqueueingNodeIndex":121}
 {"msg":"enqueueNode","enqueuedNodeAnnotation":"WriteText Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.dll.mvfrm.rsp","enqueuedNodeIndex":124,"enqueueingNodeAnnotation":"MovedFromExtractorCombine Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.dll.mvfrm","enqueueingNodeIndex":125}
 <<<<<<< HEAD
+<<<<<<< HEAD
 {"msg":"enqueueNode","enqueuedNodeAnnotation":"MovedFromExtractor Library/Bee/artifacts/mvdfrm/Unity.AI.Navigation.Editor.ConversionSystem.ref.dll_D58562F0DF82BCBA.mvfrm","enqueuedNodeIndex":221,"enqueueingNodeAnnotation":"ScriptAssemblies","enqueueingNodeIndex":6}
 {"msg":"enqueueNode","enqueuedNodeAnnotation":"Csc Library/Bee/artifacts/1900b0aE.dag/Unity.AI.Navigation.Editor.ConversionSystem.dll (+2 others)","enqueuedNodeIndex":136,"enqueueingNodeAnnotation":"MovedFromExtractor Library/Bee/artifacts/mvdfrm/Unity.AI.Navigation.Editor.ConversionSystem.ref.dll_D58562F0DF82BCBA.mvfrm","enqueueingNodeIndex":221}
 {"msg":"enqueueNode","enqueuedNodeAnnotation":"WriteText Library/Bee/artifacts/1900b0aE.dag/Unity.AI.Navigation.Editor.ConversionSystem.UnityAdditionalFile.txt","enqueuedNodeIndex":133,"enqueueingNodeAnnotation":"Csc Library/Bee/artifacts/1900b0aE.dag/Unity.AI.Navigation.Editor.ConversionSystem.dll (+2 others)","enqueueingNodeIndex":136}
@@ -768,6 +769,8 @@
 {"msg":"noderesult","processed_node_count":137,"number_of_nodes_ever_queued":139,"annotation":"CopyFiles C:/Users/Cameron/Desktop/builds/64x64_Data/boot.config","index":14,"exitcode":0,"outputfile":"C:\\Users\\Cameron\\Desktop\\builds\\64x64_Data\\boot.config"}
 >>>>>>> parent of b84bc49 (Enemy Death Fix)
 =======
+=======
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
 {"msg":"enqueueNode","enqueuedNodeAnnotation":"MovedFromExtractor Library/Bee/artifacts/mvdfrm/Unity.AI.Navigation.Editor.ConversionSystem.ref.dll_D58562F0DF82BCBA.mvfrm","enqueuedNodeIndex":215,"enqueueingNodeAnnotation":"ScriptAssemblies","enqueueingNodeIndex":6}
 {"msg":"enqueueNode","enqueuedNodeAnnotation":"Csc Library/Bee/artifacts/1900b0aE.dag/Unity.AI.Navigation.Editor.ConversionSystem.dll (+2 others)","enqueuedNodeIndex":129,"enqueueingNodeAnnotation":"MovedFromExtractor Library/Bee/artifacts/mvdfrm/Unity.AI.Navigation.Editor.ConversionSystem.ref.dll_D58562F0DF82BCBA.mvfrm","enqueueingNodeIndex":215}
 {"msg":"enqueueNode","enqueuedNodeAnnotation":"WriteText Library/Bee/artifacts/1900b0aE.dag/Unity.AI.Navigation.Editor.ConversionSystem.UnityAdditionalFile.txt","enqueuedNodeIndex":126,"enqueueingNodeAnnotation":"Csc Library/Bee/artifacts/1900b0aE.dag/Unity.AI.Navigation.Editor.ConversionSystem.dll (+2 others)","enqueueingNodeIndex":129}
@@ -1035,4 +1038,7 @@
 {"msg":"inputSignatureChanged","annotation":"CopyFiles Library/ScriptAssemblies/Assembly-CSharp.dll","index":383,"changes":[{"key":"FileList","value":["Library\\Bee\\artifacts\\1900b0aE.dag\\Assembly-CSharp.dll"],"oldvalue":[],"dependency":"explicit"}]}
 {"msg":"runNodeAction","annotation":"CopyFiles Library/ScriptAssemblies/Assembly-CSharp.dll","displayName":"Copying Assembly-CSharp.dll","index":383}
 {"msg":"noderesult","processed_node_count":382,"number_of_nodes_ever_queued":384,"annotation":"CopyFiles Library/ScriptAssemblies/Assembly-CSharp.dll","index":383,"exitcode":0,"outputfile":"Library\\ScriptAssemblies\\Assembly-CSharp.dll"}
+<<<<<<< HEAD
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
+=======
 >>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
