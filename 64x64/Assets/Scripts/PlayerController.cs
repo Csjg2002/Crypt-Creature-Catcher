@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject[] gear;
     private int currentGearIndex = 0;
+    private bool canSwitch = true;
 
     private GameObject UI;
 
@@ -79,29 +80,24 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetAxis("Mouse ScrollWheel") != 0)
         {
-            ScrollGear();
+            if(canSwitch)
+            {
+                ScrollGear();
+            }
         }
         
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             if(currentGearIndex != 0)
             {
-                gear[currentGearIndex].SetActive(false);
-
-                currentGearIndex = 0;
-
-                gear[currentGearIndex].SetActive(true);
+                ScrollGear();
             }
         }
         else if(Input.GetKeyDown(KeyCode.Alpha2))
         {
             if(currentGearIndex != 1)
             {
-                gear[currentGearIndex].SetActive(false);
-
-                currentGearIndex = 1;
-
-                gear[currentGearIndex].SetActive(true);
+                ScrollGear();
             }
         }
 
@@ -370,13 +366,38 @@ public class PlayerController : MonoBehaviour
         renderCam.transform.localRotation = rcInitialRotation;
     }
 
-    void ScrollGear()
+    private void ScrollGear()
+    {
+        canSwitch = false;
+
+        if (currentGearIndex == 0)
+        {
+            sword.gameObject.GetComponent<Animator>().Play("Sword_Pulldown");
+        }
+        else
+        {
+            net.gameObject.GetComponent<Animator>().Play("Net_Pulldown");
+        }
+    }
+
+    public void SwitchGear()
     {
         gear[currentGearIndex].SetActive(false);
 
         currentGearIndex = (currentGearIndex + 1) % gear.Length;
 
         gear[currentGearIndex].SetActive(true);
+
+        if(currentGearIndex == 0)
+        {
+            sword.gameObject.GetComponent<Animator>().Play("Sword_Pullup");
+        }
+        else
+        {
+            net.gameObject.GetComponent<Animator>().Play("Net_Pullup");
+        }
+
+        canSwitch = true;
     }
 
     private void Action()
@@ -398,6 +419,7 @@ public class PlayerController : MonoBehaviour
                     sword.gameObject.GetComponent<Animator>().Play("Sword_Swing");
                     sword.gameObject.GetComponent<SwordCollisionDetection>().shouldAttack = false;
                     swordTrail.SetActive(true);
+                    canSwitch = false;
                 }
                 else
                 {
@@ -409,6 +431,7 @@ public class PlayerController : MonoBehaviour
                     sword.gameObject.GetComponent<Animator>().Play("Sword_Swing2");
                     sword.gameObject.GetComponent<SwordCollisionDetection>().shouldAttack = true;
                     swordTrail.SetActive(true);
+                    canSwitch = false;
                 }
 
                 canSwingSword = false;
@@ -443,6 +466,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.9f);
         SwordTrailDeactivate();
+        canSwitch = true;
     }
 
     public void SwordTrailDeactivate()

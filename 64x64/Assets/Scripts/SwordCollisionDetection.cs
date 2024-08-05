@@ -8,12 +8,13 @@ public class SwordCollisionDetection : MonoBehaviour
     private GameObject player;
     private GameObject enemyToAttack;
 
-    private bool canAttack = false;
     private bool shouldHitstop = false;
 
     [HideInInspector] public bool shouldAttack = false;
 
     public GameObject deadSwitch;
+
+    public GameObject bloodParticle;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +32,6 @@ public class SwordCollisionDetection : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            canAttack = true;
             enemyToAttack = other.gameObject;
         }
     }
@@ -40,7 +40,6 @@ public class SwordCollisionDetection : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            canAttack = false;
             enemyToAttack = null;
         }
     }
@@ -102,6 +101,14 @@ public class SwordCollisionDetection : MonoBehaviour
 
     private IEnumerator enemyHurtIndicator(GameObject enemy, float stopTime)
     {
+        Vector3 forwardDirection = enemy.transform.forward;
+
+        float distanceInFront = 1.5f;
+
+        Vector3 positionInFront = player.gameObject.transform.position - forwardDirection * distanceInFront;
+
+        Instantiate(bloodParticle, positionInFront, enemy.transform.rotation);
+
         enemy.GetComponent<SpriteRenderer>().material.color = Color.red;
 
         if(shouldHitstop)
