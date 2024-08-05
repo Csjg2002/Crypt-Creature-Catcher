@@ -235,7 +235,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (hasBeenAttacked) yield break;
 
-        float attackCooldown = 1f;
+        float attackCooldown = 0.8f;
         float elapsedTime = 0f;
 
         while (elapsedTime < attackCooldown)
