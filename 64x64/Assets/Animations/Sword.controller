@@ -178,6 +178,7 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+<<<<<<< HEAD
 --- !u!1102 &2654415924172837022
 AnimatorState:
   serializedVersion: 6
@@ -205,6 +206,8 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+=======
+>>>>>>> parent of bfa2626f (New Sword + Lighting)
 --- !u!1107 &3665721890338673186
 AnimatorStateMachine:
   serializedVersion: 6
@@ -222,6 +225,7 @@ AnimatorStateMachine:
     m_Position: {x: 310, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5115697685625611306}
+<<<<<<< HEAD
     m_Position: {x: 570, y: 110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2654415924172837022}
@@ -233,6 +237,9 @@ AnimatorStateMachine:
 =======
     m_Position: {x: 550, y: 300, z: 0}
 >>>>>>> parent of f572b0c (Merge branch 'main' of https://github.com/Csjg2002/Crypt-Creature-Catcher)
+=======
+    m_Position: {x: 550, y: 150, z: 0}
+>>>>>>> parent of bfa2626f (New Sword + Lighting)
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
