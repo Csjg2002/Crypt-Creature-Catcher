@@ -233,8 +233,11 @@ public class EnemyAI : MonoBehaviour
     {
         if (hasBeenAttacked) yield break;
 
+<<<<<<< HEAD
         enemyBody.GetComponent<Animator>().Play("Attack");
 
+=======
+>>>>>>> parent of a20f8d7 (enemy attack + death anim updates)
         float attackCooldown = 1f;
         float elapsedTime = 0f;
 
