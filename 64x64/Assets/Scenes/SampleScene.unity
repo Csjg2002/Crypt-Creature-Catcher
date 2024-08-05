@@ -13993,6 +13993,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 111435181388560562, guid: 3337544985ed7cc4b9d02d757500216c, type: 3}
+      propertyPath: net
+      value: 
+      objectReference: {fileID: 1266271542136289952}
+    - target: {fileID: 111435181388560562, guid: 3337544985ed7cc4b9d02d757500216c, type: 3}
       propertyPath: swordTrail
       value: 
       objectReference: {fileID: 183104448}

@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour
     private bool hasAttacked = false;
     [HideInInspector] public bool canSwingSword = true;
 
+    public GameObject net;
+
     public GameObject[] gear;
     private int currentGearIndex = 0;
 
@@ -184,11 +186,13 @@ public class PlayerController : MonoBehaviour
         {
             StartBobbing();
             sword.gameObject.GetComponent<Animator>().SetFloat("Speed", currentSpeed);
+            net.gameObject.GetComponent<Animator>().SetFloat("Speed", currentSpeed);
         }
         else
         {
             StartCoroutine(StopBobbing(0.05f));
             sword.gameObject.GetComponent<Animator>().SetFloat("Speed", 0);
+            net.gameObject.GetComponent<Animator>().SetFloat("Speed", 0);
         }
     }
 
@@ -286,16 +290,19 @@ public class PlayerController : MonoBehaviour
         {
             renderCam.gameObject.GetComponent<Animator>().speed = 1;
             sword.gameObject.GetComponent<Animator>().speed = 0.8f;
+            net.gameObject.GetComponent<Animator>().speed = 0.8f;
         }
         else if(currentSpeed == 12)
         {
-            renderCam.gameObject.GetComponent<Animator>().speed = 1f;
+            renderCam.gameObject.GetComponent<Animator>().speed = 1;
             sword.gameObject.GetComponent<Animator>().speed = 1;
+            net.gameObject.GetComponent<Animator>().speed = 1;
         }
         else
         {
             renderCam.gameObject.GetComponent<Animator>().speed = 0.5f;
             sword.gameObject.GetComponent<Animator>().speed = 0.6f;
+            net.gameObject.GetComponent<Animator>().speed = 0.6f;
         }
     }
 
@@ -379,6 +386,7 @@ public class PlayerController : MonoBehaviour
             if (staminaSlider.value > 0)
             {
                 sword.gameObject.GetComponent<Animator>().speed = 1;
+                net.gameObject.GetComponent<Animator>().speed = 1;
 
                 if (!hasAttacked)
                 {
