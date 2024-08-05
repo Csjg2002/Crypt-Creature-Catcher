@@ -112,7 +112,11 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+<<<<<<< HEAD
   - time: 1.0833334
+=======
+  - time: 1.5833334
+>>>>>>> parent of b84bc49 (Enemy Death Fix)
     functionName: DeathPass
     data: 
     objectReferenceParameter: {fileID: 0}
