@@ -1545,10 +1545,10 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 21300000, guid: 3388fc48548fa6443b64afac0e11cb4a, type: 3}
-    - sprite: {fileID: 21300000, guid: 0ce37d22f6d23ab4797fa51182bf3e23, type: 3}
-    - sprite: {fileID: 21300000, guid: c2d4d90e74eb5784c954ae7e7cf934d3, type: 3}
-    - sprite: {fileID: 21300000, guid: 42c92fffa77a6de4987c073f82c8bec2, type: 3}
+    - sprite: {fileID: -1336765300, guid: 74542b50db0a5114993696d72dc1aaec, type: 3}
+    - sprite: {fileID: -1420602292, guid: 74542b50db0a5114993696d72dc1aaec, type: 3}
+    - sprite: {fileID: 753281773, guid: 74542b50db0a5114993696d72dc1aaec, type: 3}
+    - sprite: {fileID: -562225171, guid: 74542b50db0a5114993696d72dc1aaec, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -4967,7 +4967,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3388fc48548fa6443b64afac0e11cb4a, type: 3}
+  m_Sprite: {fileID: -1336765300, guid: 74542b50db0a5114993696d72dc1aaec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

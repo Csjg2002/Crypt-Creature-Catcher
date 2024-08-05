@@ -477,6 +477,7 @@ public class PlayerController : MonoBehaviour
             StopCoroutine(swordTrailCoroutine);
             swordTrailCoroutine = null;
         }
+        canSwitch = true;
     }
 
     private IEnumerator SwordAnimReset()
