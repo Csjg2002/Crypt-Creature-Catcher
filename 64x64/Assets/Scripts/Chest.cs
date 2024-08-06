@@ -23,6 +23,8 @@ public class Chest : MonoBehaviour
 
     public IEnumerator Open()
     {
+        GetComponent<Collider>().enabled = false;
+
         Time.timeScale = 0;
 
         yield return new WaitForSecondsRealtime(0.05f);
@@ -32,6 +34,5 @@ public class Chest : MonoBehaviour
         StartCoroutine(playerController.ChestOpenShake());
 
         animator.Play("ChestOpen");
-        GetComponent<Collider>().enabled = false;
     }
 }

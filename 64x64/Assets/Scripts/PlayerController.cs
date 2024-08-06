@@ -50,6 +50,8 @@ public class PlayerController : MonoBehaviour
 
     private bool fullScreen;
 
+    [HideInInspector] public bool hasQueuedInput = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -76,6 +78,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && canSwingSword)
         {
             Action();
+        }
+        else if (Input.GetMouseButtonDown(0) && !canSwingSword)
+        {
+            hasQueuedInput = true;
         }
 
         if (Input.GetAxis("Mouse ScrollWheel") != 0)
@@ -400,7 +406,7 @@ public class PlayerController : MonoBehaviour
         canSwitch = true;
     }
 
-    private void Action()
+    public void Action()
     {
         if (currentGearIndex == 0)
         {
@@ -434,6 +440,7 @@ public class PlayerController : MonoBehaviour
                     canSwitch = false;
                 }
 
+                hasQueuedInput = false;
                 canSwingSword = false;
                 hasAttacked = !hasAttacked;
                 SwordStamina();

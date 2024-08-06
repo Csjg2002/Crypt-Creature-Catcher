@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class SwordCollisionDetection : MonoBehaviour
 {
     private GameObject player;
-    private GameObject enemyToAttack;
+    private List<GameObject> enemiesToAttack = new List<GameObject>();
 
     private bool shouldHitstop = false;
 
@@ -34,7 +34,10 @@ public class SwordCollisionDetection : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            enemyToAttack = other.gameObject;
+            if (!enemiesToAttack.Contains(other.gameObject))
+            {
+                enemiesToAttack.Add(other.gameObject);
+            }
         }
         else if(other.tag == "Chest")
         {
@@ -46,7 +49,10 @@ public class SwordCollisionDetection : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            enemyToAttack = null;
+            if (!enemiesToAttack.Contains(other.gameObject))
+            {
+                enemiesToAttack.Add(other.gameObject);
+            }
         }
         else if (other.tag == "Chest")
         {
@@ -56,62 +62,64 @@ public class SwordCollisionDetection : MonoBehaviour
 
     public void Attack()
     {
-        if (enemyToAttack != null)
+        foreach (GameObject enemy in enemiesToAttack)
         {
-            Vector3 snapPosition = new Vector3(enemyToAttack.transform.position.x, enemyToAttack.transform.position.y, player.transform.position.z + player.transform.forward.z * 1.5f);
-            enemyToAttack.transform.parent.position = snapPosition;
-
-            StartCoroutine(player.GetComponent<PlayerController>().SwordAttackCameraShake(0.2f,0.1f));
-
-            if(player.GetComponent<PlayerController>().isSprinting)
+            if(enemy != null)
             {
-                enemyToAttack.GetComponentInParent<EnemyAI>().enemyHealth -= 2;
-            }
-            else
-            {
-                enemyToAttack.GetComponentInParent<EnemyAI>().enemyHealth--;
-            }
+                Vector3 snapPosition = new Vector3(enemy.transform.position.x, enemy.transform.position.y, player.transform.position.z + player.transform.forward.z * 1.5f);
+                enemy.transform.parent.position = snapPosition;
 
-            enemyToAttack.GetComponentInParent<EnemyAI>().hasBeenAttacked = true;
+                StartCoroutine(player.GetComponent<PlayerController>().SwordAttackCameraShake(0.2f, 0.1f));
 
-            if (enemyToAttack.GetComponentInParent<EnemyAI>().enemyHealth <= 0)
-            {
-                shouldHitstop = true;
-                StartCoroutine(enemyHurtIndicator(enemyToAttack, 0.15f));
-            }
-            else
-            {
-                enemyToAttack.GetComponentInParent<EnemyAI>().attackCount++;
-
-                if (enemyToAttack.GetComponentInParent<EnemyAI>().attackCount >= 2 && shouldAttack)
+                if (player.GetComponent<PlayerController>().isSprinting)
                 {
-                    shouldHitstop = true;
-                    enemyToAttack.GetComponentInParent<EnemyAI>().attackCount = 0;
-
-                    NavMeshAgent enemyAgent = enemyToAttack.GetComponentInParent<NavMeshAgent>();
-                    if (enemyAgent != null)
-                    {
-                        enemyAgent.enabled = false;
-
-                        enemyToAttack.transform.parent.position += player.transform.forward * 0.75f;
-
-                        enemyAgent.enabled = true;
-                    }
+                    enemy.GetComponentInParent<EnemyAI>().enemyHealth -= 2;
+                }
+                else
+                {
+                    enemy.GetComponentInParent<EnemyAI>().enemyHealth--;
                 }
 
-                shouldAttack = false;
-                StartCoroutine(enemyHurtIndicator(enemyToAttack, 0.15f));
-            }
+                enemy.GetComponentInParent<EnemyAI>().hasBeenAttacked = true;
 
-            if(!shouldHitstop)
-            {
-                StartCoroutine(enemyHurtIndicator(enemyToAttack, 0.1f));
-            } 
+                if (enemy.GetComponentInParent<EnemyAI>().enemyHealth <= 0)
+                {
+                    shouldHitstop = true;
+                    StartCoroutine(enemyHurtIndicator(enemy, 0.15f));
+                }
+                else
+                {
+                    enemy.GetComponentInParent<EnemyAI>().attackCount++;
+
+                    if (enemy.GetComponentInParent<EnemyAI>().attackCount >= 2 && shouldAttack)
+                    {
+                        shouldHitstop = true;
+                        enemy.GetComponentInParent<EnemyAI>().attackCount = 0;
+
+                        NavMeshAgent enemyAgent = enemy.GetComponentInParent<NavMeshAgent>();
+                        if (enemyAgent != null)
+                        {
+                            enemyAgent.enabled = false;
+                            enemy.transform.parent.position += player.transform.forward * 0.75f;
+                            enemyAgent.enabled = true;
+                        }
+                    }
+
+                    shouldAttack = false;
+                    StartCoroutine(enemyHurtIndicator(enemy, 0.15f));
+                }
+
+                if (!shouldHitstop)
+                {
+                    StartCoroutine(enemyHurtIndicator(enemy, 0.1f));
+                }
+            }          
         }
 
-        if(chestToOpen != null)
+        if (chestToOpen != null)
         {
             StartCoroutine(chestToOpen.GetComponent<Chest>().Open());
+            chestToOpen = null;
         }
     }
 
@@ -160,6 +168,12 @@ public class SwordCollisionDetection : MonoBehaviour
     public void ReactivateSwordSwing()
     {
         player.GetComponent<PlayerController>().canSwingSword = true;
+        
+        if (player.GetComponent<PlayerController>().hasQueuedInput)
+        {
+            player.GetComponent<PlayerController>().hasQueuedInput = false;
+            player.GetComponent<PlayerController>().Action();
+        }
     }
 
     public void DeactivateSwordTrail()
