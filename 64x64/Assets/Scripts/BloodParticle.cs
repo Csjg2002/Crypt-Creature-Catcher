@@ -23,7 +23,7 @@ public class BloodParticle : MonoBehaviour
 
     private IEnumerator End()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
         Destroy(this.gameObject);
     }
 }

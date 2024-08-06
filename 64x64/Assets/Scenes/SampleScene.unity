@@ -673,25 +673,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.033333335
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 98b7e005804fccc498f16c0ae381cee2, type: 2}
-  m_BuildHeightMesh: 0
 --- !u!4 &111099160
 Transform:
   m_ObjectHideFlags: 0
@@ -8976,12 +8957,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1776365038603003004, guid: 6574fdff5a0cab545a7547e1f0b583f6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5127
+      objectReference: {fileID: 0}
+    - target: {fileID: 1776365038603003004, guid: 6574fdff5a0cab545a7547e1f0b583f6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5127
+      objectReference: {fileID: 0}
+    - target: {fileID: 1776365038603003004, guid: 6574fdff5a0cab545a7547e1f0b583f6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5127
+      objectReference: {fileID: 0}
+    - target: {fileID: 1776365038603003004, guid: 6574fdff5a0cab545a7547e1f0b583f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.85
       objectReference: {fileID: 0}
     - target: {fileID: 1776365038603003004, guid: 6574fdff5a0cab545a7547e1f0b583f6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4
+      value: 0.744
       objectReference: {fileID: 0}
     - target: {fileID: 1776365038603003004, guid: 6574fdff5a0cab545a7547e1f0b583f6, type: 3}
       propertyPath: m_LocalPosition.z
