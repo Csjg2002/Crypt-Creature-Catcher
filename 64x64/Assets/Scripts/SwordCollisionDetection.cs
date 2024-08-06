@@ -16,6 +16,8 @@ public class SwordCollisionDetection : MonoBehaviour
 
     public GameObject bloodParticle;
 
+    private GameObject chestToOpen;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +36,10 @@ public class SwordCollisionDetection : MonoBehaviour
         {
             enemyToAttack = other.gameObject;
         }
+        else if(other.tag == "Chest")
+        {
+            chestToOpen = other.gameObject;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -42,6 +48,10 @@ public class SwordCollisionDetection : MonoBehaviour
         {
             enemyToAttack = null;
         }
+        else if (other.tag == "Chest")
+        {
+            chestToOpen = null;
+        }
     }
 
     public void Attack()
@@ -49,11 +59,19 @@ public class SwordCollisionDetection : MonoBehaviour
         if (enemyToAttack != null)
         {
             Vector3 snapPosition = new Vector3(enemyToAttack.transform.position.x, enemyToAttack.transform.position.y, player.transform.position.z + player.transform.forward.z * 1.5f);
-            enemyToAttack.transform.position = snapPosition;
+            enemyToAttack.transform.parent.position = snapPosition;
 
             StartCoroutine(player.GetComponent<PlayerController>().SwordAttackCameraShake(0.2f,0.1f));
 
-            enemyToAttack.GetComponentInParent<EnemyAI>().enemyHealth--;
+            if(player.GetComponent<PlayerController>().isSprinting)
+            {
+                enemyToAttack.GetComponentInParent<EnemyAI>().enemyHealth -= 2;
+            }
+            else
+            {
+                enemyToAttack.GetComponentInParent<EnemyAI>().enemyHealth--;
+            }
+
             enemyToAttack.GetComponentInParent<EnemyAI>().hasBeenAttacked = true;
 
             if (enemyToAttack.GetComponentInParent<EnemyAI>().enemyHealth <= 0)
@@ -89,6 +107,11 @@ public class SwordCollisionDetection : MonoBehaviour
             {
                 StartCoroutine(enemyHurtIndicator(enemyToAttack, 0.1f));
             } 
+        }
+
+        if(chestToOpen != null)
+        {
+            StartCoroutine(chestToOpen.GetComponent<Chest>().Open());
         }
     }
 

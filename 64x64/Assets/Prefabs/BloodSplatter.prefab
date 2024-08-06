@@ -4903,7 +4903,6 @@ GameObject:
   - component: {fileID: 9036743101285259265}
   - component: {fileID: 1497880635053414034}
   - component: {fileID: 5808489326178066223}
-  - component: {fileID: 1940844506107694578}
   m_Layer: 0
   m_Name: BloodSplatter
   m_TagString: Untagged
@@ -5009,25 +5008,3 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a1b35c0000a8f9c4b846c199471c8cd6, type: 3}
   - {fileID: 21300000, guid: 8e37d8898f3cc1349af0a5a76cca77ef, type: 3}
   bloodRenderer: {fileID: 9036743101285259265}
-  bloodburst: {fileID: 0}
---- !u!95 &1940844506107694578
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 798726823026333868}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a11f83c210bd1d14fb07cc9b5d70ab95, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0

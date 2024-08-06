@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded = true;
 
     private int currentSpeed = 12;
-    private bool isSprinting = false;
+    [HideInInspector] public bool isSprinting = false;
 
     private bool isCrouching = false;
     private Vector3 offset;
@@ -528,6 +528,25 @@ public class PlayerController : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
+        transform.localPosition = originalPos;
+    }
+
+    public IEnumerator ChestOpenShake()
+    {
+        Vector3 originalPos = transform.localPosition;
+        float elapsed = 0.0f;
+
+        while (elapsed < 0.2f)
+        {
+            float x = Random.Range(-1f, 1f) * 0.1f;
+            float y = Random.Range(-1f, 1f) * 0.1f;
+
+            transform.localPosition = new Vector3(originalPos.x + x, originalPos.y + y, originalPos.z);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
         transform.localPosition = originalPos;
     }
 }
