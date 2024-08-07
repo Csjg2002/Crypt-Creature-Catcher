@@ -499,6 +499,11 @@ public class PlayerController : MonoBehaviour
 
     private void CatchCreature()
     {
+        net.gameObject.GetComponent<Animator>().Play("Net_Swing");
+    }
+
+    public void CheckForCreature()
+    {
         int layerMask = LayerMask.GetMask("AI");
 
         Ray ray = new Ray(playerCam.transform.position, playerCam.transform.forward);
@@ -509,7 +514,7 @@ public class PlayerController : MonoBehaviour
         {
             if (hit.collider.CompareTag("Creature"))
             {
-                Destroy(hit.collider.gameObject);
+                Destroy(hit.collider.gameObject.transform.parent.gameObject);
             }
         }
     }

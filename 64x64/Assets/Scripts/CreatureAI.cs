@@ -20,12 +20,15 @@ public class CreatureAI : MonoBehaviour
     private Coroutine moveCoroutine;
     private Coroutine fleeCoroutine;
 
+    private GameObject creatureBody;
+
     // Start is called before the first frame update
     void Start()
     {
         player = FindObjectOfType<PlayerController>().gameObject;
         creatureAgent = GetComponent<NavMeshAgent>();
         StartCoroutine(MoveToNewLocation());
+        creatureBody = GetComponentInChildren<Animator>().gameObject;
     }
 
     // Update is called once per frame
@@ -81,9 +84,9 @@ public class CreatureAI : MonoBehaviour
 
     private void LookAtPlayer()
     {
-        Vector3 lookDirection = player.transform.position - transform.position;
+        Vector3 lookDirection = player.transform.position - creatureBody.transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(lookDirection);
-        transform.rotation = lookRotation;
+        creatureBody.transform.rotation = lookRotation;
     }
 
     private IEnumerator MoveToNewLocation()

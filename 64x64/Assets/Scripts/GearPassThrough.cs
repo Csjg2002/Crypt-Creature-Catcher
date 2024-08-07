@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class GearPassThrough : MonoBehaviour
 {
-    private GameObject player;
+    private PlayerController player;
 
     private void Start()
     {
-        player = FindObjectOfType<PlayerController>().gameObject;
+        player = FindObjectOfType<PlayerController>();
     }
 
     public void SwitchGearPassThrough()
     {
-        player.GetComponent<PlayerController>().SwitchGear();
+        player.SwitchGear();
+    }
+
+    public void CheckForCreaturePassThrough()
+    {
+        player.CheckForCreature();
     }
 }
