@@ -64,62 +64,76 @@ public class SwordCollisionDetection : MonoBehaviour
     {
         foreach (GameObject enemy in enemiesToAttack)
         {
-            if(enemy != null)
+            if (enemy != null)
             {
-                Vector3 snapPosition = new Vector3(enemy.transform.position.x, enemy.transform.position.y, player.transform.position.z + player.transform.forward.z * 1.5f);
-                enemy.transform.parent.position = snapPosition;
+                Vector3 directionToEnemy = (enemy.transform.parent.position - player.transform.position).normalized;
 
-                StartCoroutine(player.GetComponent<PlayerController>().SwordAttackCameraShake(0.2f, 0.1f));
+                float dotProduct = Vector3.Dot(player.transform.forward, directionToEnemy);
 
-                if (player.GetComponent<PlayerController>().isSprinting)
+                if (dotProduct > 0.7f)
                 {
-                    enemy.GetComponentInParent<EnemyAI>().enemyHealth -= 2;
-                }
-                else
-                {
-                    enemy.GetComponentInParent<EnemyAI>().enemyHealth--;
-                }
+                    Vector3 snapPosition = new Vector3(enemy.transform.parent.position.x, enemy.transform.parent.position.y, player.transform.position.z + player.transform.forward.z * 1.5f);
+                    enemy.transform.parent.position = snapPosition;
 
-                enemy.GetComponentInParent<EnemyAI>().hasBeenAttacked = true;
+                    StartCoroutine(player.GetComponent<PlayerController>().SwordAttackCameraShake(0.2f, 0.1f));
 
-                if (enemy.GetComponentInParent<EnemyAI>().enemyHealth <= 0)
-                {
-                    shouldHitstop = true;
-                    StartCoroutine(enemyHurtIndicator(enemy, 0.15f));
-                }
-                else
-                {
-                    enemy.GetComponentInParent<EnemyAI>().attackCount++;
-
-                    if (enemy.GetComponentInParent<EnemyAI>().attackCount >= 2 && shouldAttack)
+                    if (player.GetComponent<PlayerController>().isSprinting)
                     {
-                        shouldHitstop = true;
-                        enemy.GetComponentInParent<EnemyAI>().attackCount = 0;
-
-                        NavMeshAgent enemyAgent = enemy.GetComponentInParent<NavMeshAgent>();
-                        if (enemyAgent != null)
-                        {
-                            enemyAgent.enabled = false;
-                            enemy.transform.parent.position += player.transform.forward * 0.75f;
-                            enemyAgent.enabled = true;
-                        }
+                        enemy.GetComponentInParent<EnemyAI>().enemyHealth -= 2;
+                    }
+                    else
+                    {
+                        enemy.GetComponentInParent<EnemyAI>().enemyHealth--;
                     }
 
-                    shouldAttack = false;
-                    StartCoroutine(enemyHurtIndicator(enemy, 0.15f));
-                }
+                    enemy.GetComponentInParent<EnemyAI>().hasBeenAttacked = true;
 
-                if (!shouldHitstop)
-                {
-                    StartCoroutine(enemyHurtIndicator(enemy, 0.1f));
+                    if (enemy.GetComponentInParent<EnemyAI>().enemyHealth <= 0)
+                    {
+                        shouldHitstop = true;
+                        StartCoroutine(enemyHurtIndicator(enemy, 0.15f));
+                    }
+                    else
+                    {
+                        enemy.GetComponentInParent<EnemyAI>().attackCount++;
+
+                        if (enemy.GetComponentInParent<EnemyAI>().attackCount >= 2 && shouldAttack)
+                        {
+                            shouldHitstop = true;
+                            enemy.GetComponentInParent<EnemyAI>().attackCount = 0;
+
+                            NavMeshAgent enemyAgent = enemy.GetComponentInParent<NavMeshAgent>();
+                            if (enemyAgent != null)
+                            {
+                                enemyAgent.enabled = false;
+                                enemy.transform.parent.position += player.transform.forward * 0.75f;
+                                enemyAgent.enabled = true;
+                            }
+                        }
+
+                        shouldAttack = false;
+                        StartCoroutine(enemyHurtIndicator(enemy, 0.15f));
+                    }
+
+                    if (!shouldHitstop)
+                    {
+                        StartCoroutine(enemyHurtIndicator(enemy, 0.1f));
+                    }
                 }
-            }          
+            }
         }
 
         if (chestToOpen != null)
         {
-            StartCoroutine(chestToOpen.GetComponent<Chest>().Open());
-            chestToOpen = null;
+            Vector3 directionToChest = (chestToOpen.transform.position - player.transform.position).normalized;
+
+            float dotProduct = Vector3.Dot(player.transform.forward, directionToChest);
+
+            if (dotProduct > 0.7f)
+            {
+                StartCoroutine(chestToOpen.GetComponent<Chest>().Open());
+                chestToOpen = null;
+            }
         }
     }
 
