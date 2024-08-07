@@ -344,7 +344,7 @@ public class PlayerController : MonoBehaviour
 
         while (staminaSlider.value < staminaSlider.maxValue)
         {
-            staminaSlider.value += 0.1f;
+            staminaSlider.value += 0.2f;
             yield return new WaitForSeconds(0.1f);
         }
     }
