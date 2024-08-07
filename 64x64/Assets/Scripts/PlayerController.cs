@@ -243,7 +243,10 @@ public class PlayerController : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, 1f, layerMask))
             {
-                isCrouching = true;
+                if(playerController.height != 2)
+                {
+                    isCrouching = true;
+                }
             }
             else
             {
