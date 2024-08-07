@@ -41,16 +41,23 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool canSwingSword = true;
 
     public GameObject net;
+    [SerializeField] private ParticleSystem collectHealthCreaturePS;
+    [SerializeField] private GameObject collectedCreature;
+    [HideInInspector] public bool hasFoundCreature;
 
     public GameObject[] gear;
     private int currentGearIndex = 0;
-    private bool canSwitch = true;
+    [HideInInspector] public bool canSwitch = true;
+    [HideInInspector] public bool canSwingNet = true;
 
     private GameObject UI;
 
-    private bool fullScreen;
-
     [HideInInspector] public bool hasQueuedInput = false;
+
+    [HideInInspector] public bool isPaused = false;
+    [HideInInspector] public bool canMove = true;
+
+    public GameObject speedLines;
 
     // Start is called before the first frame update
     void Start()
@@ -68,68 +75,57 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, 0.4f, groundMask);
+        if(!isPaused && canMove)
+        {
+            isGrounded = Physics.CheckSphere(groundCheck.position, 0.4f, groundMask);
 
-        if (isGrounded && playerVelocity.y < 0)
-        {
-            playerVelocity.y = -2;
-        }
-
-        if (Input.GetMouseButtonDown(0) && canSwingSword)
-        {
-            Action();
-        }
-        else if (Input.GetMouseButtonDown(0) && !canSwingSword)
-        {
-            hasQueuedInput = true;
-        }
-
-        if (Input.GetAxis("Mouse ScrollWheel") != 0)
-        {
-            if(canSwitch)
+            if (isGrounded && playerVelocity.y < 0)
             {
-                ScrollGear();
+                playerVelocity.y = -2;
             }
-        }
-        
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            if(currentGearIndex != 0)
-            {
-                ScrollGear();
-            }
-        }
-        else if(Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            if(currentGearIndex != 1)
-            {
-                ScrollGear();
-            }
-        }
 
-        if(Input.GetKeyDown(KeyCode.F11))
-        {
-            if(!fullScreen)
+            if (Input.GetMouseButtonDown(0) && canSwingSword)
             {
-                Screen.fullScreen = true;
-                fullScreen = true;
+                Action();
             }
-            else
+            else if (Input.GetMouseButtonDown(0) && !canSwingSword)
             {
-                Screen.fullScreen= false;
-                fullScreen = false;
+                hasQueuedInput = true;
             }
+
+            if (Input.GetAxis("Mouse ScrollWheel") != 0)
+            {
+                if (canSwitch)
+                {
+                    ScrollGear();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                if (currentGearIndex != 0)
+                {
+                    ScrollGear();
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                if (currentGearIndex != 1)
+                {
+                    ScrollGear();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Slash))
+            {
+                GameOver();
+            }
+
+            CamLook();
+            PlayerMove();
+
+            Crouch();
         }
-
-        if(Input.GetKeyDown (KeyCode.Slash))
-        {
-            GameOver();
-        }
-
-        CamLook();
-        PlayerMove();
-
-        Crouch();
     }
 
     private void CamLook()
@@ -164,10 +160,12 @@ public class PlayerController : MonoBehaviour
         {
             if(moveX != 0 || moveZ != 0)
             {
+                speedLines.SetActive(true);
                 Sprint();
             }
             else
             {
+                speedLines.SetActive(false);
                 if (decreaseStaminaCoroutine != null)
                 {
                     StopCoroutine(decreaseStaminaCoroutine);
@@ -177,10 +175,12 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.LeftControl))
         {
+            speedLines.SetActive(false);
             isCrouching = !isCrouching;
         }
         else
         {
+            speedLines.SetActive(false);
             Walk();
         }
 
@@ -411,13 +411,13 @@ public class PlayerController : MonoBehaviour
 
     public void Action()
     {
+        sword.gameObject.GetComponent<Animator>().speed = 1;
+        net.gameObject.GetComponent<Animator>().speed = 1;
+
         if (currentGearIndex == 0)
         {
             if (staminaSlider.value > 0)
             {
-                sword.gameObject.GetComponent<Animator>().speed = 1;
-                net.gameObject.GetComponent<Animator>().speed = 1;
-
                 if (!hasAttacked)
                 {
                     if (swordAnimCoroutine != null)
@@ -446,7 +446,7 @@ public class PlayerController : MonoBehaviour
                 hasQueuedInput = false;
                 canSwingSword = false;
                 hasAttacked = !hasAttacked;
-                SwordStamina();
+                ActionStamina();
 
                 if(swordTrailCoroutine != null)
                 {
@@ -461,11 +461,18 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            CatchCreature();
+            if(staminaSlider.value > 0)
+            {
+                hasQueuedInput = false;
+                canSwingNet = false;
+                canSwitch = false;
+                CatchCreature();
+                ActionStamina();
+            }
         }
     }
 
-    public void SwordStamina()
+    public void ActionStamina()
     {
         staminaSlider.value--;
         Sprint();
@@ -514,9 +521,42 @@ public class PlayerController : MonoBehaviour
         {
             if (hit.collider.CompareTag("Creature"))
             {
-                Destroy(hit.collider.gameObject.transform.parent.gameObject);
+                GameObject creature = Instantiate(collectedCreature, hit.collider.gameObject.transform.position, hit.collider.gameObject.transform.rotation);
+                Destroy(hit.collider.gameObject);
+                StartCoroutine(ShrinkCreature(creature));
+                hasFoundCreature = true;
+                canMove = false;
             }
         }
+    }
+
+    private IEnumerator ShrinkCreature(GameObject creatureToShrink)
+    {
+        Vector3 startScale = creatureToShrink.transform.localScale;
+        Vector3 endScale = Vector3.zero;
+        float elapsed = 0f;
+
+        while (elapsed < 0.2f)
+        {
+            float t = elapsed / 0.2f;
+            creatureToShrink.transform.localScale = Vector3.Lerp(startScale, endScale, t);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        creatureToShrink.transform.localScale = endScale;
+
+        ParticleSystem effect = Instantiate(collectHealthCreaturePS, creatureToShrink.transform.position, Quaternion.identity);
+
+        Vector3 directionToPlayer = (transform.position - creatureToShrink.transform.position).normalized;
+
+        Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
+
+        effect.transform.rotation = lookRotation;
+
+        hasFoundCreature = false;
+        StartCoroutine(CatchCreatureShake());
     }
 
     public void GameOver()
@@ -543,6 +583,23 @@ public class PlayerController : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
+        transform.localPosition = originalPos;
+    }
+
+    private IEnumerator CatchCreatureShake()
+    {
+        Vector3 originalPos = transform.localPosition;
+        float elapsed = 0f;
+
+        while (elapsed < 0.2f)
+        {
+            Vector3 shakeOffset = Random.insideUnitSphere * 0.05f;
+            transform.localPosition = originalPos + shakeOffset;
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
         transform.localPosition = originalPos;
     }
 

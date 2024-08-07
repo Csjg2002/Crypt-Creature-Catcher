@@ -84,9 +84,12 @@ public class CreatureAI : MonoBehaviour
 
     private void LookAtPlayer()
     {
-        Vector3 lookDirection = player.transform.position - creatureBody.transform.position;
-        Quaternion lookRotation = Quaternion.LookRotation(lookDirection);
-        creatureBody.transform.rotation = lookRotation;
+        if(creatureBody != null)
+        {
+            Vector3 lookDirection = player.transform.position - creatureBody.transform.position;
+            Quaternion lookRotation = Quaternion.LookRotation(lookDirection);
+            creatureBody.transform.rotation = lookRotation;
+        }
     }
 
     private IEnumerator MoveToNewLocation()

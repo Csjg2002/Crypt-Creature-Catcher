@@ -20,4 +20,22 @@ public class GearPassThrough : MonoBehaviour
     {
         player.CheckForCreature();
     }
+
+    public void ResetCanSwitch()
+    {
+        player.canSwitch = true;
+        player.canMove = true;
+    }
+
+    public IEnumerator CreatureHitStop()
+    {
+        if(player.hasFoundCreature)
+        {
+            Time.timeScale = 0;
+
+            yield return new WaitForSecondsRealtime(0.05f);
+
+            Time.timeScale = 1;
+        }
+    }
 }
