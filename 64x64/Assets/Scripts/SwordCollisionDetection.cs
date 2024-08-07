@@ -49,9 +49,9 @@ public class SwordCollisionDetection : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            if (!enemiesToAttack.Contains(other.gameObject))
+            if (enemiesToAttack.Contains(other.gameObject))
             {
-                enemiesToAttack.Add(other.gameObject);
+                enemiesToAttack.Remove(other.gameObject);
             }
         }
         else if (other.tag == "Chest")
