@@ -29,7 +29,6 @@ public class CreatureAI : MonoBehaviour
         Physics.IgnoreCollision(GetComponentInChildren<Collider>(), player.GetComponent<CharacterController>());
         creatureAgent = GetComponent<NavMeshAgent>();
         StartCoroutine(MoveToNewLocation());
-        creatureBody = GetComponentInChildren<Animator>().gameObject;
     }
 
     // Update is called once per frame
