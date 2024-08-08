@@ -59,6 +59,9 @@ public class PlayerController : MonoBehaviour
 
     public GameObject speedLines;
 
+    [HideInInspector] public bool isHealing;
+    [HideInInspector] public bool isResting;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -557,19 +560,23 @@ public class PlayerController : MonoBehaviour
 
         creatureToShrink.transform.localScale = endScale;
 
-        ParticleSystem effect = Instantiate(collectHealthCreaturePS, creatureToShrink.transform.position, Quaternion.identity);
+        ParticleSystem collecteffect = Instantiate(collectHealthCreaturePS, creatureToShrink.transform.position, Quaternion.identity);
 
         Vector3 directionToPlayer = (transform.position - creatureToShrink.transform.position).normalized;
 
         Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
 
-        effect.transform.rotation = lookRotation;
+        collecteffect.transform.rotation = lookRotation;
 
         hasFoundCreature = false;
 
         ui.creatureFound = true;
         ui.creatureFoundImage.gameObject.SetActive(true);
         ui.creatureImage.color = Color.white;
+
+        Destroy(creatureToShrink);
+        healthSlider.maxValue += 2;
+        healthSlider.value = healthSlider.maxValue;
 
         StartCoroutine(CatchCreatureShake());
     }

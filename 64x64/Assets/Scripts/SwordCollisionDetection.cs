@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class SwordCollisionDetection : MonoBehaviour
 {
@@ -21,6 +20,9 @@ public class SwordCollisionDetection : MonoBehaviour
 
     [HideInInspector] public EnemySpawner currentEncounter;
     [HideInInspector] public int enemiesRemaining;
+
+    public GameObject healthPickup;
+    public GameObject staminaPickup;
 
     // Start is called before the first frame update
     void Start()
@@ -205,6 +207,34 @@ public class SwordCollisionDetection : MonoBehaviour
         {
             enemiesRemaining--;
             Instantiate(deadSwitch, enemy.gameObject.transform.position, enemy.gameObject.transform.rotation);
+
+            int pickupType = Random.Range(0, 7);
+
+            switch (pickupType)
+            {
+                case 0:
+                    Instantiate(healthPickup, enemy.transform.position, Quaternion.identity);
+                    break;
+                case 1:
+                    Instantiate(staminaPickup, enemy.transform.position, Quaternion.identity);
+                    break;
+                case 2:
+                    Vector3 offset = Random.onUnitSphere;
+                    offset.y = 0;
+                    offset.Normalize();
+                    offset *= 0.5f;
+
+                    Instantiate(healthPickup, enemy.transform.position + offset, Quaternion.identity);
+                    Instantiate(staminaPickup, enemy.transform.position - offset, Quaternion.identity);
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+            }
+
             Destroy(enemy.transform.parent.gameObject);
         }
     }

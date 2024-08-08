@@ -28,6 +28,7 @@ public class CreatureAI : MonoBehaviour
         player = FindObjectOfType<PlayerController>().gameObject;
         Physics.IgnoreCollision(GetComponentInChildren<Collider>(), player.GetComponent<CharacterController>());
         creatureAgent = GetComponent<NavMeshAgent>();
+        creatureBody = GetComponentInChildren<Animator>().gameObject;
         StartCoroutine(MoveToNewLocation());
     }
 
@@ -50,8 +51,6 @@ public class CreatureAI : MonoBehaviour
                 StopFleeing();
             }
         }
-
-        LookAtPlayer();
     }
 
     private void StartFleeing()
@@ -79,16 +78,6 @@ public class CreatureAI : MonoBehaviour
         if (moveCoroutine == null)
         {
             moveCoroutine = StartCoroutine(MoveToNewLocation());
-        }
-    }
-
-    private void LookAtPlayer()
-    {
-        if(creatureBody != null)
-        {
-            Vector3 lookDirection = player.transform.position - creatureBody.transform.position;
-            Quaternion lookRotation = Quaternion.LookRotation(lookDirection);
-            creatureBody.transform.rotation = lookRotation;
         }
     }
 

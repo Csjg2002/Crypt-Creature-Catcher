@@ -60,7 +60,11 @@ public class EnemySpawner : MonoBehaviour
             return null;
         }
 
-        playerAttack.enemiesRemaining = enemyPrefabs.Length;
+        if(enemyPrefabs[index] != null)
+        {
+            playerAttack.enemiesRemaining = enemyPrefabs.Length;
+        }
+
         return enemyPrefabs[index % enemyPrefabs.Length];
     }
 }
