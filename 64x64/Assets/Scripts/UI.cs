@@ -5,19 +5,40 @@ using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
+    private PlayerController player;
+
     public Image fadeScreen;
     public Image damageScreen;
+
+    public GameObject creatureBook;
+    private bool creatureBookActive = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        player = FindObjectOfType<PlayerController>();
         StartCoroutine(FadeIn());
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (!player.isPaused)
+        {
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                if(!creatureBookActive)
+                {
+                    StartCoroutine(OpenCreatureBook(new Vector3(0, 1, 1), new Vector3(1, 1, 1)));
+                    creatureBookActive = true;
+                }
+                else
+                {
+                    StartCoroutine(OpenCreatureBook(transform.localScale, new Vector3(0, 1, 1)));
+                    creatureBookActive = false;
+                }
+            }
+        }
     }
 
     private IEnumerator FadeIn()
@@ -63,5 +84,24 @@ public class UI : MonoBehaviour
 
         color.a = 0f;
         damageScreen.color = color;
+    }
+
+    private IEnumerator OpenCreatureBook(Vector3 startScale, Vector3 endScale)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < 0.3f)
+        {
+
+            float t = elapsedTime / 0.3f;
+
+            creatureBook.transform.localScale = Vector3.Lerp(startScale, endScale, t);
+
+            elapsedTime += Time.deltaTime;
+
+            yield return null;
+        }
+
+        creatureBook.transform.localScale = endScale;
     }
 }
