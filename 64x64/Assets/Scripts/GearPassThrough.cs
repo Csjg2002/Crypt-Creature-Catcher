@@ -38,4 +38,16 @@ public class GearPassThrough : MonoBehaviour
             Time.timeScale = 1;
         }
     }
+
+    public void ReactivateNetSwing()
+    {
+        player.GetComponent<PlayerController>().canSwingNet = true;
+
+
+        if (player.GetComponent<PlayerController>().hasQueuedInput)
+        {
+            player.GetComponent<PlayerController>().hasQueuedInput = false;
+            player.GetComponent<PlayerController>().Action();
+        }
+    }
 }

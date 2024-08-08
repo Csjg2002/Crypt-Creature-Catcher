@@ -84,11 +84,11 @@ public class PlayerController : MonoBehaviour
                 playerVelocity.y = -2;
             }
 
-            if (Input.GetMouseButtonDown(0) && canSwingSword)
+            if (Input.GetMouseButtonDown(0) && canSwingSword && canSwingNet)
             {
                 Action();
             }
-            else if (Input.GetMouseButtonDown(0) && !canSwingSword)
+            else if (Input.GetMouseButtonDown(0) && !canSwingSword || Input.GetMouseButtonDown(0) && !canSwingNet)
             {
                 hasQueuedInput = true;
             }

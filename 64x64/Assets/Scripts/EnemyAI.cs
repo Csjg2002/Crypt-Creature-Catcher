@@ -24,7 +24,6 @@ public class EnemyAI : MonoBehaviour
     private Coroutine attackCoroutine;
 
     private float distanceToPlayer;
-    private bool hasDamagedPlayer = false;
 
     [HideInInspector] public float enemyHealth;
     [HideInInspector] public int attackCount = 0;
@@ -89,7 +88,6 @@ public class EnemyAI : MonoBehaviour
     {
         isChasing = false;
         enemyAgent.speed = normalSpeed;
-        hasDamagedPlayer = false;
 
         if (chaseCoroutine != null)
         {
@@ -216,8 +214,11 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
-                enemyAgent.SetDestination(transform.position);
-                enemyBody.GetComponent<Animator>().Play("Attack");
+                if(attackCoroutine == null && isChasing && !hasBeenAttacked)
+                {
+                    enemyAgent.SetDestination(transform.position);
+                    enemyBody.GetComponent<Animator>().Play("Attack");
+                }
             }
 
             yield return null;
@@ -241,9 +242,8 @@ public class EnemyAI : MonoBehaviour
 
         while (elapsedTime < attackCooldown)
         {
-            if (distanceToPlayer > 1.5f || !isChasing || hasBeenAttacked)
+            if (distanceToPlayer > 2f || !isChasing || hasBeenAttacked)
             {
-                hasDamagedPlayer = false;
                 attackCoroutine = null;
                 StopChasing();
                 yield break;
@@ -253,10 +253,8 @@ public class EnemyAI : MonoBehaviour
             yield return null;
         }
 
-        if (distanceToPlayer <= 1.5f && isChasing && !hasDamagedPlayer && !hasBeenAttacked)
+        if (distanceToPlayer <= 1.5f && isChasing && !hasBeenAttacked)
         {
-            hasDamagedPlayer = true;
-
             player.GetComponent<CharacterController>().Move(enemyBody.transform.forward += player.transform.forward * 0.2f * Time.deltaTime);
 
 
