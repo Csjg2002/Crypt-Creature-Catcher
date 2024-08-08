@@ -69,4 +69,22 @@ public class PauseGame : MonoBehaviour
             }
         }
     }
+
+    public void StartPause()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        pauseScreen.gameObject.SetActive(true);
+        Time.timeScale = 0;
+        player.isPaused = true;
+    }
+
+    public void StopPause()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        pauseScreen.gameObject.SetActive(false);
+        Time.timeScale = 1;
+        player.isPaused = false;
+    }
 }

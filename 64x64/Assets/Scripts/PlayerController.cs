@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool canSwitch = true;
     [HideInInspector] public bool canSwingNet = true;
 
-    private GameObject UI;
+    private UI ui;
 
     [HideInInspector] public bool hasQueuedInput = false;
 
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        UI = FindObjectOfType<UI>().gameObject;
+        ui = FindObjectOfType<UI>();
 
         for (int i = 0; i < gear.Length; i++)
         {
@@ -566,6 +566,11 @@ public class PlayerController : MonoBehaviour
         effect.transform.rotation = lookRotation;
 
         hasFoundCreature = false;
+
+        ui.creatureFound = true;
+        ui.creatureFoundImage.gameObject.SetActive(true);
+        ui.creatureImage.color = Color.white;
+
         StartCoroutine(CatchCreatureShake());
     }
 
@@ -579,7 +584,7 @@ public class PlayerController : MonoBehaviour
         if(!isPaused)
         {
             StartCoroutine(DamageShake());
-            StartCoroutine(UI.GetComponent<UI>().DamageIndicator());
+            StartCoroutine(ui.DamageIndicator());
         }
     }
 

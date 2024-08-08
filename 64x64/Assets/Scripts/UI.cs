@@ -6,37 +6,41 @@ using UnityEngine.UI;
 public class UI : MonoBehaviour
 {
     private PlayerController player;
+    public PauseGame pause;
 
     public Image fadeScreen;
     public Image damageScreen;
 
     public GameObject creatureBook;
+    public Image creatureImage;
+    public Image creatureFoundImage;
+    [HideInInspector] public bool creatureFound = false;
     private bool creatureBookActive = false;
 
     // Start is called before the first frame update
     void Start()
     {
         player = FindObjectOfType<PlayerController>();
+        pause = FindObjectOfType<PauseGame>();
         StartCoroutine(FadeIn());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!player.isPaused)
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (Input.GetKeyDown(KeyCode.Tab))
+            if (!creatureBookActive)
             {
-                if(!creatureBookActive)
-                {
-                    StartCoroutine(OpenCreatureBook(new Vector3(0, 1, 1), new Vector3(1, 1, 1)));
-                    creatureBookActive = true;
-                }
-                else
-                {
-                    StartCoroutine(OpenCreatureBook(transform.localScale, new Vector3(0, 1, 1)));
-                    creatureBookActive = false;
-                }
+                StartCoroutine(OpenCreatureBook(new Vector3(-200, 0, 0), new Vector3(8, 0, 0)));
+                creatureBookActive = true;
+                pause.StartPause();
+            }
+            else
+            {
+                StartCoroutine(OpenCreatureBook(transform.localPosition, new Vector3(-200, 0, 0)));
+                creatureBookActive = false;
+                pause.StopPause();
             }
         }
     }
@@ -86,22 +90,22 @@ public class UI : MonoBehaviour
         damageScreen.color = color;
     }
 
-    private IEnumerator OpenCreatureBook(Vector3 startScale, Vector3 endScale)
+    private IEnumerator OpenCreatureBook(Vector3 startPosition, Vector3 endPosition)
     {
         float elapsedTime = 0f;
+        float duration = 0.3f;
 
-        while (elapsedTime < 0.3f)
+        while (elapsedTime < duration)
         {
+            float t = elapsedTime / duration;
 
-            float t = elapsedTime / 0.3f;
+            creatureBook.transform.position = Vector3.Lerp(startPosition, endPosition, t);
 
-            creatureBook.transform.localScale = Vector3.Lerp(startScale, endScale, t);
-
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.unscaledDeltaTime;
 
             yield return null;
         }
 
-        creatureBook.transform.localScale = endScale;
+        creatureBook.transform.position = endPosition;
     }
 }
