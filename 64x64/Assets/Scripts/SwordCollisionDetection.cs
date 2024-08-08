@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class SwordCollisionDetection : MonoBehaviour
 {
@@ -20,8 +21,6 @@ public class SwordCollisionDetection : MonoBehaviour
 
     [HideInInspector] public EnemySpawner currentEncounter;
     [HideInInspector] public int enemiesRemaining;
-
-    private bool hasSnappedEnemy = false;
 
     // Start is called before the first frame update
     void Start()
@@ -93,7 +92,6 @@ public class SwordCollisionDetection : MonoBehaviour
         {
             Vector3 snapPosition = new Vector3(enemyToSnap.transform.parent.position.x, enemyToSnap.transform.parent.position.y, player.transform.position.z + player.transform.forward.z * 1.5f);
             enemyToSnap.transform.parent.position = snapPosition;
-            hasSnappedEnemy = true;
         }
 
         foreach (GameObject enemy in enemiesToAttack)
@@ -202,7 +200,6 @@ public class SwordCollisionDetection : MonoBehaviour
         shouldHitstop = false;
         enemy.GetComponentInParent<EnemyAI>().hasBeenAttacked = false;
         enemy.GetComponent<SpriteRenderer>().material.color = Color.white;
-        hasSnappedEnemy = false;
 
         if (enemy.GetComponentInParent<EnemyAI>().enemyHealth <= 0)
         {
@@ -215,7 +212,8 @@ public class SwordCollisionDetection : MonoBehaviour
     public void ReactivateSwordSwing()
     {
         player.GetComponent<PlayerController>().canSwingSword = true;
-        
+
+
         if (player.GetComponent<PlayerController>().hasQueuedInput)
         {
             player.GetComponent<PlayerController>().hasQueuedInput = false;
