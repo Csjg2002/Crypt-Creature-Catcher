@@ -18,6 +18,9 @@ public class SwordCollisionDetection : MonoBehaviour
 
     private GameObject chestToOpen;
 
+    [HideInInspector] public EnemySpawner currentEncounter;
+    [HideInInspector] public int enemiesRemaining;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -174,6 +177,7 @@ public class SwordCollisionDetection : MonoBehaviour
 
         if (enemy.GetComponentInParent<EnemyAI>().enemyHealth <= 0)
         {
+            enemiesRemaining--;
             Instantiate(deadSwitch, enemy.gameObject.transform.position, enemy.gameObject.transform.rotation);
             Destroy(enemy.transform.parent.gameObject);
         }

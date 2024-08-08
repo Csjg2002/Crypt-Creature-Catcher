@@ -38,6 +38,7 @@ public class EnemyAI : MonoBehaviour
     {
         enemyHealth = Random.Range(3, 6);
         player = FindObjectOfType<PlayerController>().gameObject;
+        Physics.IgnoreCollision(GetComponentInChildren<Collider>(), player.GetComponent<CharacterController>());
         enemyAgent = GetComponent<NavMeshAgent>();
         StartCoroutine(MoveToNewLocation());
     }

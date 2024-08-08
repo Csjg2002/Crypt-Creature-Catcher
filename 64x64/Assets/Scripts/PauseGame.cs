@@ -27,19 +27,25 @@ public class PauseGame : MonoBehaviour
         {
             if (Time.timeScale == 1)
             {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                pauseScreen.gameObject.SetActive(true);
-                Time.timeScale = 0;
-                player.isPaused = true;
+                if(player != null)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    pauseScreen.gameObject.SetActive(true);
+                    Time.timeScale = 0;
+                    player.isPaused = true;
+                }
             }
             else if (Time.timeScale == 0)
             {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                pauseScreen.gameObject.SetActive(false);
-                Time.timeScale = 1;
-                player.isPaused = false;
+                if(player != null)
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    pauseScreen.gameObject.SetActive(false);
+                    Time.timeScale = 1;
+                    player.isPaused = false;
+                }
             }
         }
     }
@@ -53,11 +59,14 @@ public class PauseGame : MonoBehaviour
     {
         if (!hasFocus && Time.timeScale == 1)
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            pauseScreen.gameObject.SetActive(true);
-            Time.timeScale = 0;
-            player.isPaused = true;
+            if(player != null)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                pauseScreen.gameObject.SetActive(true);
+                Time.timeScale = 0;
+                player.isPaused = true;
+            }
         }
     }
 }

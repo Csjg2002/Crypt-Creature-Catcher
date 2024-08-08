@@ -26,6 +26,7 @@ public class CreatureAI : MonoBehaviour
     void Start()
     {
         player = FindObjectOfType<PlayerController>().gameObject;
+        Physics.IgnoreCollision(GetComponentInChildren<Collider>(), player.GetComponent<CharacterController>());
         creatureAgent = GetComponent<NavMeshAgent>();
         StartCoroutine(MoveToNewLocation());
         creatureBody = GetComponentInChildren<Animator>().gameObject;
