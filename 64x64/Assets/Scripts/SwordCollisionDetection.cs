@@ -21,6 +21,8 @@ public class SwordCollisionDetection : MonoBehaviour
     [HideInInspector] public EnemySpawner currentEncounter;
     [HideInInspector] public int enemiesRemaining;
 
+    private bool hasSnappedEnemy = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,6 +67,9 @@ public class SwordCollisionDetection : MonoBehaviour
 
     public void Attack()
     {
+        float highestDotProduct = 0;
+        GameObject enemyToSnap = null;
+
         foreach (GameObject enemy in enemiesToAttack)
         {
             if (enemy != null)
@@ -75,9 +80,32 @@ public class SwordCollisionDetection : MonoBehaviour
 
                 if (dotProduct > 0.7f)
                 {
-                    Vector3 snapPosition = new Vector3(enemy.transform.parent.position.x, enemy.transform.parent.position.y, player.transform.position.z + player.transform.forward.z * 1.5f);
-                    enemy.transform.parent.position = snapPosition;
+                    if (highestDotProduct < dotProduct)
+                    {
+                        highestDotProduct = dotProduct;
+                        enemyToSnap = enemy;
+                    }
+                }
+            }
+        }
 
+        if(enemyToSnap != null)
+        {
+            Vector3 snapPosition = new Vector3(enemyToSnap.transform.parent.position.x, enemyToSnap.transform.parent.position.y, player.transform.position.z + player.transform.forward.z * 1.5f);
+            enemyToSnap.transform.parent.position = snapPosition;
+            hasSnappedEnemy = true;
+        }
+
+        foreach (GameObject enemy in enemiesToAttack)
+        {
+            if (enemy != null)
+            {
+                Vector3 directionToEnemy = (enemy.transform.parent.position - player.transform.position).normalized;
+
+                float dotProduct = Vector3.Dot(player.transform.forward, directionToEnemy);
+
+                if (dotProduct > 0.7f)
+                {
                     StartCoroutine(player.GetComponent<PlayerController>().SwordAttackCameraShake(0.2f, 0.1f));
 
                     if (player.GetComponent<PlayerController>().isSprinting)
@@ -174,6 +202,7 @@ public class SwordCollisionDetection : MonoBehaviour
         shouldHitstop = false;
         enemy.GetComponentInParent<EnemyAI>().hasBeenAttacked = false;
         enemy.GetComponent<SpriteRenderer>().material.color = Color.white;
+        hasSnappedEnemy = false;
 
         if (enemy.GetComponentInParent<EnemyAI>().enemyHealth <= 0)
         {

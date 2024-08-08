@@ -354,25 +354,35 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator DamageShake()
     {
-        Quaternion pcInitialRotation = playerCam.transform.localRotation;
-        Quaternion rcInitialRotation = renderCam.transform.localRotation;
-
-        float elapsed = 0f;
-
-        while (elapsed < 0.75f)
+        if(!isPaused)
         {
-            float yShake = Random.Range(-2f, 2f);
-            float zShake = Random.Range(-2f, 2f);
+            Quaternion pcInitialRotation = playerCam.transform.localRotation;
+            Quaternion rcInitialRotation = renderCam.transform.localRotation;
 
-            playerCam.transform.localRotation = pcInitialRotation * Quaternion.Euler(0, yShake, zShake);
-            renderCam.transform.localRotation = rcInitialRotation * Quaternion.Euler(0, yShake, zShake);
+            float elapsed = 0f;
 
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
+            while (elapsed < 0.75f)
+            {
+                if(!isPaused)
+                {
+                    float yShake = Random.Range(-2f, 2f);
+                    float zShake = Random.Range(-2f, 2f);
 
-        playerCam.transform.localRotation = pcInitialRotation;
-        renderCam.transform.localRotation = rcInitialRotation;
+                    playerCam.transform.localRotation = pcInitialRotation * Quaternion.Euler(0, yShake, zShake);
+                    renderCam.transform.localRotation = rcInitialRotation * Quaternion.Euler(0, yShake, zShake);
+
+                    elapsed += Time.deltaTime;
+                    yield return null;
+                }
+                else
+                {
+                    yield return null;
+                }
+            }
+
+            playerCam.transform.localRotation = pcInitialRotation;
+            renderCam.transform.localRotation = rcInitialRotation;
+        }  
     }
 
     private void ScrollGear()
@@ -566,59 +576,92 @@ public class PlayerController : MonoBehaviour
 
     public void DamageEffects()
     {
-        StartCoroutine(DamageShake());
-        StartCoroutine(UI.GetComponent<UI>().DamageIndicator());
+        if(!isPaused)
+        {
+            StartCoroutine(DamageShake());
+            StartCoroutine(UI.GetComponent<UI>().DamageIndicator());
+        }
     }
 
     public IEnumerator SwordAttackCameraShake(float duration, float magnitude)
     {
-        Vector3 originalPos = transform.localPosition;
-        float elapsed = 0f;
-        while (elapsed < duration)
+        if(!isPaused)
         {
-            float percentComplete = elapsed / duration;
-            float damping = Mathf.Clamp01(1 - (percentComplete * 1));
-            transform.localPosition = originalPos + Random.insideUnitSphere * magnitude * damping;
+            Vector3 originalPos = transform.localPosition;
+            float elapsed = 0f;
+            while (elapsed < duration)
+            {
+                if(!isPaused)
+                {
+                    float percentComplete = elapsed / duration;
+                    float damping = Mathf.Clamp01(1 - (percentComplete * 1));
+                    transform.localPosition = originalPos + Random.insideUnitSphere * magnitude * damping;
 
-            elapsed += Time.deltaTime;
-            yield return null;
+                    elapsed += Time.deltaTime;
+                    yield return null;
+                }
+                else
+                {
+                    yield return null;
+                }
+            }
+            transform.localPosition = originalPos;
         }
-        transform.localPosition = originalPos;
     }
 
     private IEnumerator CatchCreatureShake()
     {
-        Vector3 originalPos = transform.localPosition;
-        float elapsed = 0f;
-
-        while (elapsed < 0.2f)
+        if(!isPaused)
         {
-            Vector3 shakeOffset = Random.insideUnitSphere * 0.05f;
-            transform.localPosition = originalPos + shakeOffset;
+            Vector3 originalPos = transform.localPosition;
+            float elapsed = 0f;
 
-            elapsed += Time.deltaTime;
-            yield return null;
+            while (elapsed < 0.2f)
+            {
+                if(!isPaused)
+                {
+                    Vector3 shakeOffset = Random.insideUnitSphere * 0.05f;
+                    transform.localPosition = originalPos + shakeOffset;
+
+                    elapsed += Time.deltaTime;
+                    yield return null;
+                }
+                else
+                {
+                    yield return null;
+                }
+            }
+
+            transform.localPosition = originalPos;
         }
-
-        transform.localPosition = originalPos;
     }
 
     public IEnumerator ChestOpenShake()
     {
-        Vector3 originalPos = transform.localPosition;
-        float elapsed = 0.0f;
-
-        while (elapsed < 0.2f)
+        if(!isPaused)
         {
-            float x = Random.Range(-1f, 1f) * 0.1f;
-            float y = Random.Range(-1f, 1f) * 0.1f;
+            Vector3 originalPos = transform.localPosition;
+            float elapsed = 0.0f;
 
-            transform.localPosition = new Vector3(originalPos.x + x, originalPos.y + y, originalPos.z);
+            while (elapsed < 0.2f)
+            {
+                if(!isPaused)
+                {
+                    float x = Random.Range(-1f, 1f) * 0.1f;
+                    float y = Random.Range(-1f, 1f) * 0.1f;
 
-            elapsed += Time.deltaTime;
-            yield return null;
+                    transform.localPosition = new Vector3(originalPos.x + x, originalPos.y + y, originalPos.z);
+
+                    elapsed += Time.deltaTime;
+                    yield return null;
+                }
+                else
+                {
+                    yield return null;
+                }
+            }
+
+            transform.localPosition = originalPos;
         }
-
-        transform.localPosition = originalPos;
     }
 }
