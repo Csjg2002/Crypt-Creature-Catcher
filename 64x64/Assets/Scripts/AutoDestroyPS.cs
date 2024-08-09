@@ -6,12 +6,9 @@ public class AutoDestroyPS : MonoBehaviour
 {
     public float timeToDestroy;
 
-    private PlayerController player;
-
     // Start is called before the first frame update
     void Start()
     {
-        player = FindObjectOfType<PlayerController>();
         StartCoroutine(AutoDestroy());
     }
 
@@ -24,8 +21,6 @@ public class AutoDestroyPS : MonoBehaviour
     private IEnumerator AutoDestroy()
     {
         yield return new WaitForSeconds(timeToDestroy);
-        player.isHealing = false;
-        player.isResting = false;
         Destroy(this.gameObject);
     }
 }

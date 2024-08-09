@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -21,7 +23,6 @@ public class EnemySpawner : MonoBehaviour
                 {
                     Destroy(firewall.transform.parent.gameObject);
                 }
-
                 Destroy(this.gameObject);
             }
         }

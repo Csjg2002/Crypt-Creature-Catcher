@@ -78,38 +78,30 @@ public class PickupRefill : MonoBehaviour
     {
         if (type == PickupType.health)
         {
-            if(!player.isHealing)
+            if (player.healthSlider.value < player.healthSlider.maxValue)
             {
-                if (player.healthSlider.value < player.healthSlider.maxValue)
-                {
-                    StopAllCoroutines();
-                    player.healthSlider.value++;
+                StopAllCoroutines();
+                player.healthSlider.value++;
 
-                    GameObject gaineffect = Instantiate(gainPS, player.transform.position, Quaternion.identity);
+                GameObject gaineffect = Instantiate(gainPS, player.transform.position, Quaternion.identity);
 
-                    gaineffect.transform.parent = player.gameObject.transform;
-                    player.isHealing = true;
+                gaineffect.transform.parent = player.gameObject.transform;
 
-                    Destroy(this.gameObject);
-                }
+                Destroy(this.gameObject);
             }
         }
         else
         {
-            if(!player.isResting)
+            if (player.staminaSlider.value < player.staminaSlider.maxValue)
             {
-                if (player.staminaSlider.value < player.staminaSlider.maxValue)
-                {
-                    StopAllCoroutines();
-                    player.staminaSlider.value++;
+                StopAllCoroutines();
+                player.staminaSlider.value++;
 
-                    GameObject gaineffect = Instantiate(gainPS, player.transform.position, Quaternion.identity);
+                GameObject gaineffect = Instantiate(gainPS, player.transform.position, Quaternion.identity);
 
-                    gaineffect.transform.parent = player.gameObject.transform;
-                    player.isResting = true;
+                gaineffect.transform.parent = player.gameObject.transform;
 
-                    Destroy(this.gameObject);
-                }
+                Destroy(this.gameObject);
             }
         }
     }
