@@ -17,6 +17,9 @@ public class UI : MonoBehaviour
     [HideInInspector] public bool creatureFound = false;
     private bool creatureBookActive = false;
 
+    public Image catchCreature;
+    public Image maxHealthIncrease;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -107,5 +110,54 @@ public class UI : MonoBehaviour
         }
 
         creatureBook.transform.position = endPosition;
+    }
+
+    public IEnumerator CatchCreature(Vector3 startPosition, Vector3 endPosition, bool type)
+    {
+        if(type == true)
+        {
+            maxHealthIncrease.gameObject.SetActive(true);
+        }
+
+        float elapsedTime = 0f;
+        float duration = 0.3f;
+
+        while (elapsedTime < duration)
+        {
+            float t = elapsedTime / duration;
+
+            catchCreature.transform.position = Vector3.Lerp(startPosition, endPosition, t);
+
+            elapsedTime += Time.unscaledDeltaTime;
+
+            yield return null;
+        }
+
+        catchCreature.transform.position = endPosition;
+
+        StartCoroutine(ReturnCatchCreature(endPosition, startPosition));
+    }
+
+    private IEnumerator ReturnCatchCreature(Vector3 startPosition, Vector3 endPosition)
+    {
+        yield return new WaitForSeconds(2);
+
+        float elapsedTime = 0f;
+        float duration = 0.3f;
+
+        while (elapsedTime < duration)
+        {
+            float t = elapsedTime / duration;
+
+            catchCreature.transform.position = Vector3.Lerp(startPosition, endPosition, t);
+
+            elapsedTime += Time.unscaledDeltaTime;
+
+            yield return null;
+        }
+
+        catchCreature.transform.position = endPosition;
+
+        maxHealthIncrease.gameObject.SetActive(false);
     }
 }

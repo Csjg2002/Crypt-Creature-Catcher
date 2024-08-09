@@ -41,7 +41,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool canSwingSword = true;
 
     public GameObject net;
-    [SerializeField] private ParticleSystem collectHealthCreaturePS;
+    [SerializeField] private ParticleSystem collectCreaturePS;
+    [SerializeField] private ParticleSystem statGainPS;
     [SerializeField] private GameObject collectedCreature;
     [HideInInspector] public bool hasFoundCreature;
 
@@ -58,9 +59,6 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool canMove = true;
 
     public GameObject speedLines;
-
-    [HideInInspector] public bool isHealing;
-    [HideInInspector] public bool isResting;
 
     // Start is called before the first frame update
     void Start()
@@ -560,7 +558,7 @@ public class PlayerController : MonoBehaviour
 
         creatureToShrink.transform.localScale = endScale;
 
-        ParticleSystem collecteffect = Instantiate(collectHealthCreaturePS, creatureToShrink.transform.position, Quaternion.identity);
+        ParticleSystem collecteffect = Instantiate(collectCreaturePS, creatureToShrink.transform.position, Quaternion.identity);
 
         Vector3 directionToPlayer = (transform.position - creatureToShrink.transform.position).normalized;
 
@@ -568,11 +566,14 @@ public class PlayerController : MonoBehaviour
 
         collecteffect.transform.rotation = lookRotation;
 
+        ParticleSystem statgaineffect = Instantiate(statGainPS, transform.position, Quaternion.identity);
+
         hasFoundCreature = false;
 
         ui.creatureFound = true;
         ui.creatureFoundImage.gameObject.SetActive(true);
         ui.creatureImage.color = Color.white;
+        StartCoroutine(ui.CatchCreature(new Vector3(200, 468, 0), new Vector3(200, 300, 0), true));
 
         Destroy(creatureToShrink);
         healthSlider.maxValue += 2;
