@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject sword;
     public GameObject swordTrail;
-    private bool hasAttacked = false;
+    [HideInInspector] public bool hasAttacked = false;
     [HideInInspector] public bool canSwingSword = true;
 
     public GameObject net;
@@ -676,5 +676,21 @@ public class PlayerController : MonoBehaviour
 
             transform.localPosition = originalPos;
         }
+    }
+
+    public IEnumerator ProjectileReturnShake(float duration, float magnitude, float speed)
+    {
+        Vector3 originalPos = transform.localPosition;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            float shakeAmount = Mathf.Lerp(magnitude, 0, elapsed / duration);
+            transform.position = originalPos + Random.insideUnitSphere * shakeAmount;
+            elapsed += Time.deltaTime * speed;
+            yield return null;
+        }
+
+        transform.position = originalPos;
     }
 }

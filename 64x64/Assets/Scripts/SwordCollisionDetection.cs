@@ -168,13 +168,6 @@ public class SwordCollisionDetection : MonoBehaviour
         }
     }
 
-    private IEnumerator StopAgentForShortDuration(NavMeshAgent agent)
-    {
-        agent.isStopped = true;
-        yield return new WaitForSeconds(0.5f);
-        agent.isStopped = false;
-    }
-
     private IEnumerator enemyHurtIndicator(GameObject enemy, float stopTime)
     {
         Vector3 forwardDirection = enemy.transform.forward;

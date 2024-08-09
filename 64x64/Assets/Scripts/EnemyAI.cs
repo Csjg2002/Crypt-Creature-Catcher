@@ -5,11 +5,16 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
+    public enum EnemyType { melee, ranged }
+    public EnemyType enemyType;
+
     private GameObject player;
 
     private NavMeshAgent enemyAgent;
 
     private Vector3 destination;
+
+    //Melee
     private bool isMoving = false;
     private bool isChasing = false;
 
@@ -25,21 +30,35 @@ public class EnemyAI : MonoBehaviour
 
     private float distanceToPlayer;
 
+    //Ranged
+    private bool isFleeing = false;
+
+    public float fleeDistance = 10f;
+    public float fleeSpeed = 12f;
+
+    private Coroutine fleeCoroutine;
+
+    [HideInInspector] public GameObject enemyBody;
+
+    [SerializeField] private float timer = 5;
+    private float projectileTime;
+
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject projectileSpawnPoint;
+
     [HideInInspector] public float enemyHealth;
     [HideInInspector] public int attackCount = 0;
 
-    public GameObject enemyBody;
-    
     [HideInInspector] public bool hasBeenAttacked = false;
 
     // Start is called before the first frame update
     void Start()
     {
         enemyHealth = Random.Range(3, 6);
+        enemyBody = GetComponentInChildren<Animator>().gameObject;
         player = FindObjectOfType<PlayerController>().gameObject;
         Physics.IgnoreCollision(GetComponentInChildren<Collider>(), player.GetComponent<CharacterController>());
         enemyAgent = GetComponent<NavMeshAgent>();
-        StartCoroutine(MoveToNewLocation());
     }
 
     // Update is called once per frame
@@ -48,19 +67,42 @@ public class EnemyAI : MonoBehaviour
     {
         distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
-        if (distanceToPlayer < chaseDistance)
+        if (enemyType == EnemyType.melee)
         {
-            if (!isChasing)
+
+            if (distanceToPlayer < chaseDistance)
             {
-                StartChasing();
+                if (!isChasing)
+                {
+                    StartChasing();
+                }
+            }
+            else
+            {
+                if (isChasing)
+                {
+                    StopChasing();
+                }
             }
         }
         else
         {
-            if (isChasing)
+            if (distanceToPlayer < fleeDistance)
             {
-                StopChasing();
+                if (!isFleeing)
+                {
+                    StartFleeing();
+                }
             }
+            else
+            {
+                if (isFleeing)
+                {
+                    StopFleeing();
+                }
+            }
+
+            ReadyUpAttack();
         }
 
         LookAtPlayer();
@@ -188,7 +230,7 @@ public class EnemyAI : MonoBehaviour
                 Vector3 directionToPlayer = (targetPosition - transform.position).normalized;
 
                 float time = Time.time * zigzagFrequency;
-                Vector3 zigzagOffset = new Vector3(Mathf.Sin(time) * zigzagAmount,0,Mathf.Cos(time) * zigzagAmount
+                Vector3 zigzagOffset = new Vector3(Mathf.Sin(time) * zigzagAmount, 0, Mathf.Cos(time) * zigzagAmount
                 );
 
                 Vector3 newDestination = targetPosition + zigzagOffset;
@@ -214,7 +256,7 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
-                if(attackCoroutine == null && isChasing && !hasBeenAttacked)
+                if (attackCoroutine == null && isChasing && !hasBeenAttacked)
                 {
                     enemyAgent.SetDestination(transform.position);
                     enemyBody.GetComponent<Animator>().Play("Attack");
@@ -269,5 +311,86 @@ public class EnemyAI : MonoBehaviour
 
         attackCoroutine = null;
         StopChasing();
+    }
+
+    //Ranged
+    private void StartFleeing()
+    {
+        isFleeing = true;
+        enemyAgent.speed = fleeSpeed;
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+            moveCoroutine = null;
+        }
+        fleeCoroutine = StartCoroutine(FleeFromPlayer());
+    }
+
+    private void StopFleeing()
+    {
+        isFleeing = false;
+        enemyAgent.speed = normalSpeed;
+        if (fleeCoroutine != null)
+        {
+            StopCoroutine(fleeCoroutine);
+            fleeCoroutine = null;
+        }
+
+        if (moveCoroutine == null)
+        {
+            moveCoroutine = StartCoroutine(MoveToNewLocation());
+        }
+    }
+
+    private IEnumerator FleeFromPlayer()
+    {
+        while (isFleeing)
+        {
+            Vector3 directionAwayFromPlayer = transform.position - player.transform.position;
+            Vector3 potentialDestination = transform.position + directionAwayFromPlayer.normalized * fleeDistance;
+
+            if (NavMesh.SamplePosition(potentialDestination, out NavMeshHit hit, fleeDistance, NavMesh.AllAreas))
+            {
+                destination = hit.position;
+                enemyAgent.SetDestination(destination);
+            }
+            else
+            {
+                destination = transform.position;
+                enemyAgent.SetDestination(destination);
+                yield return new WaitForSeconds(2);
+            }
+
+            if (enemyAgent.pathPending || enemyAgent.pathStatus != NavMeshPathStatus.PathComplete)
+            {
+                yield return new WaitForSeconds(0.5f);
+                continue;
+            }
+
+            yield return null;
+        }
+    }
+
+    private void ReadyUpAttack()
+    {
+        projectileTime -= Time.deltaTime;
+
+        if (projectileTime > 0)
+        {
+            return;
+        }
+
+        projectileTime = timer;
+
+        enemyBody.GetComponent<Animator>().Play("Attack");
+    }
+
+    public void ShootAtPlayer()
+    {
+        GameObject projectileObj = Instantiate(projectilePrefab, projectileSpawnPoint.transform.position, projectileSpawnPoint.transform.rotation);
+        Rigidbody projectileRB = projectileObj.GetComponent<Rigidbody>();
+        projectileObj.GetComponent<Projectile>().enemyThrown = this.gameObject;
+        projectileRB.velocity = enemyBody.transform.forward * 8;
+        Destroy(projectileObj, 5f);
     }
 }

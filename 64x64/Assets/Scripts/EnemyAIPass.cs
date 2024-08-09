@@ -8,4 +8,9 @@ public class EnemyAIPass : MonoBehaviour
     {
         this.gameObject.transform.parent.gameObject.GetComponent<EnemyAI>().StartAttack();
     }
+
+    public void Projectile()
+    {
+        this.gameObject.transform.parent.gameObject.GetComponent<EnemyAI>().ShootAtPlayer();
+    }
 }
